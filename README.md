@@ -1,2 +1,2 @@
 # WorthVerse
-Career focused Social Networking Platform
+Career Focused Social Networking Platform
