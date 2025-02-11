@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-
+import logo from "../Assets/logo.png"
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false); // Add state for profile dropdown
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-blue-700">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -29,6 +29,7 @@ function Navbar() {
                 aria-hidden="true"
                 data-slot="icon"
               >
+                
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -57,7 +58,8 @@ function Navbar() {
             <div className="flex shrink-0 items-center">
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                // src="../Assets/logo.png"
+                src = {logo}
                 alt="Your Company"
               />
             </div>
