@@ -3,9 +3,9 @@ import logo from "../Assets/logo.png"
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false); // Add state for profile dropdown
-
+  const [currPage,setPage] = useState('');
   return (
-    <nav className="bg-blue-700">
+    <nav className="bg-white-100">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -36,9 +36,8 @@ function Navbar() {
                   d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 />
               </svg>
-              {/* Icon when menu is open */}
               <svg
-                className={`${isOpen ? "block" : "hidden"} size-6`} // Conditionally render based on isOpen
+                className={`${isOpen ? "block" : "hidden"} size-6`}
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
@@ -58,37 +57,40 @@ function Navbar() {
             <div className="flex shrink-0 items-center">
               <img
                 className="h-8 w-auto"
-                // src="../Assets/logo.png"
                 src = {logo}
-                alt="Your Company"
+                alt="WorthVerse"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 <a
                   href="#"
-                  className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                  onClick={() => setPage('feed')}
+                  className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'feed' ? "bg-gray-100" : "bg-white-100"}`}
                   aria-current="page"
                 >
                   Dashboard
                 </a>
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  onClick={() => setPage('connections')}
+                  className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'connections' ? "bg-gray-100" : "bg-white-100"}`}
                 >
-                  Team
+                  Connections
                 </a>
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  onClick={() => setPage('companies')}
+                  className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'companies' ? "bg-gray-100" : "bg-white-100"}`}
                 >
-                  Projects
+                  Companies
                 </a>
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  onClick={() => setPage('jobs')}
+                  className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'jobs' ? "bg-gray-100" : "bg-white-100"}`}
                 >
-                  Calendar
+                  Jobs
                 </a>
               </div>
             </div>
