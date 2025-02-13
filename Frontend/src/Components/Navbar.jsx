@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import logo from "../Assets/logo.png"
+import { Link } from "react-router-dom";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false); // Add state for profile dropdown
@@ -63,35 +64,35 @@ function Navbar() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <a
-                  href="#"
+                <Link
+                  to="/feed"
                   onClick={() => setPage('feed')}
                   className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'feed' ? "bg-gray-100" : "bg-white-100"}`}
                   aria-current="page"
                 >
                   Home
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/connections"
                   onClick={() => setPage('connections')}
                   className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'connections' ? "bg-gray-100" : "bg-white-100"}`}
                 >
                   Connections
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/companies"
                   onClick={() => setPage('companies')}
                   className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'companies' ? "bg-gray-100" : "bg-white-100"}`}
                 >
                   Companies
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/jobs"
                   onClick={() => setPage('jobs')}
                   className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage == 'jobs' ? "bg-gray-100" : "bg-white-100"}`}
                 >
                   Jobs
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -174,33 +175,33 @@ function Navbar() {
                   aria-labelledby="user-menu-button"
                   tabIndex="-1"
                 >
-                  <a
-                    href="#"
+                  <Link
+                    to="/profile"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-0"
                   >
                     Your Profile
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    to="/settings"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-1"
                   >
                     Settings
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    to="/signout"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-2"
                   >
                     Sign out
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>

@@ -3,7 +3,7 @@ import React from "react";
 
 function Mainpage(){
     return (
-        <Navbar/>
+        <h1>Main Page content</h1>
         
     );
 }

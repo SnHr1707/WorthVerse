@@ -1,10 +1,17 @@
-import Mainpage from "./Pages/Main.page";
-import React from "react";
+/** @format */
 
-function App(){
-    return (
-        <Mainpage/>
-    );
+import { Outlet } from "react-router-dom";
+import Navbar from "./Components/Navbar.jsx";
+
+function App() {
+  return (
+    <>
+        <Navbar />
+        <div className="flex-grow-1" style={{ overflowY: "auto" }}>
+        <Outlet />
+        </div>
+    </>
+  );
 }
 
 export default App;
