@@ -1,6 +1,8 @@
 import Navbar from "../Components/Navbar";
+import { Link } from 'react-router-dom';
 import React from "react";
 import page1 from "../Assets/page1.jpg";
+import Signup from "./SignUp.page";
 
 function Mainpage() {
     return (
@@ -29,14 +31,14 @@ function Mainpage() {
                     </h1>
 
                     {/* Login Button */}
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full mb-3 shadow-sm">
+                    <Link to="/login" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full mb-3 shadow-sm">
                         Login
-                    </button>
+                    </Link>
 
                     {/* Sign up Button */}
-                    <button className="bg-white hover:bg-gray-100 border border-gray-300 rounded-full py-2 px-4 w-full mb-4 flex items-center justify-center shadow-sm">
+                    <Link to="/signup" className="bg-white hover:bg-gray-100 border border-gray-300 rounded-full py-2 px-4 w-full mb-4 flex items-center justify-center shadow-sm">
                         Sign up with email
-                    </button>
+                    </Link>
 
                     {/* Agreement Text */}
                     <p className="text-xs text-gray-600">
