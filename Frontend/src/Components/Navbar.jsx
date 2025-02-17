@@ -63,9 +63,9 @@ function Navbar() {
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
                                 <Link
-                                    to="/feed"
-                                    onClick={() => setPage('feed')}
-                                    className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage === 'feed' ? "bg-gray-100" : "bg-white-100"}`}
+                                    to="/home"
+                                    onClick={() => setPage('home')}
+                                    className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage === 'home' ? "bg-gray-100" : "bg-white-100"}`}
                                     aria-current="page"
                                 >
                                     Home
@@ -149,7 +149,7 @@ function Navbar() {
                                         tabIndex="-1"
                                         id="user-menu-item-0"
                                     >
-                                        Your Profile
+                                        My Profile
                                     </Link>
                                     <Link
                                         to="/settings"
@@ -183,9 +183,9 @@ function Navbar() {
             >
                 <div className="px-2 pt-2 pb-3 space-y-1">
                     <Link
-                        to="/feed"
-                        onClick={() => { setPage('feed'); setIsOpen(false); }}
-                        className={`block rounded-md px-3 py-2 text-base font-medium text-black ${currPage === 'feed' ? "bg-gray-100" : "hover:bg-gray-100"}`}
+                        to="/home"
+                        onClick={() => { setPage('home'); setIsOpen(false); }}
+                        className={`block rounded-md px-3 py-2 text-base font-medium text-black ${currPage === 'home' ? "bg-gray-100" : "hover:bg-gray-100"}`}
                         aria-current="page"
                     >
                         Home
