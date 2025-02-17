@@ -6,7 +6,7 @@ function Mainpage() {
     return (
         <div className="h-screen flex flex-col">
             {/* <Navbar /> */}
-            <div className="flex-1 flex md:flex-row flex-col items-center md:items-stretch"> {/* Responsive flex direction and alignment */}
+            <div className="flex-1 flex md:flex-row flex-col items-center md:items-stretch">
                 {/* Right Section (Image) - Now placed first in code for visual order */}
                 <div className="flex-[2] relative"> {/* Image section takes 2/3 space on larger screens */}
                     <img
