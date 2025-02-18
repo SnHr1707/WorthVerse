@@ -161,7 +161,7 @@ function Home() {
 
                         {/* Saved Items, Groups, Events */}
                         <div className="mt-4">
-                            <Link to="#" className="flex items-center p-2 rounded-md hover:bg-gray-100">
+                            <Link to="/profile" className="flex items-center p-2 rounded-md hover:bg-gray-100">
                                 <i className="fas fa-bookmark text-gray-700 mr-2"></i>
                                 <span className="text-sm text-gray-700 font-medium">My Profile</span>
                             </Link>
@@ -183,11 +183,11 @@ function Home() {
                     <div className="mb-4">
                         <textarea
                             placeholder="Start a post"
-                            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            className="w-full border-1 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 resize-none"
                             rows="1"
                         ></textarea>
-                        <div className="flex items-center justify-between border-t border-gray-200 pt-2">
-                            <div className="flex space-x-4">
+                        <div className="flex items-center justify-center border-t border-gray-200 pt-2">
+                            <div className="flex space-x-4 ">
                                 <button className="flex items-center text-blue-500 hover:bg-gray-100 p-2 rounded-md">
                                     <i className="fas fa-photo-video mr-1"></i>
                                     <span className="text-sm">Photo</span>
