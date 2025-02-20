@@ -7,6 +7,7 @@ import HomePage from "./Pages/Home.page.jsx";
 import SignupPage from "./Pages/SignUp.page.jsx";
 import LoginPage from "./Pages/Login.page.jsx";
 import MyProfilePage from "./Pages/MyProfile.page.jsx";
+import JobPage from "./Pages/Job.page.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/jobs",
-        element: <MainPage />,
+        element: <JobPage />,
       },
       {
         path: "/profile",
