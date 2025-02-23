@@ -137,7 +137,7 @@ function Home() {
                                 alt="Profile"
                                 className="w-24 h-24 rounded-full mx-auto"
                             />
-                            <button className="absolute bottom-2 right-2 bg-blue-500 hover:bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                            <button className="absolute bottom-2 right-2 bg-green-500 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center">
                                 <i className="fas fa-plus"></i>
                             </button>
                         </div>
@@ -151,11 +151,11 @@ function Home() {
                         <div className="mt-4">
                             <div className="flex justify-between items-center mb-2">
                                 <span className="text-sm font-medium text-gray-700">Profile viewers</span>
-                                <span className="text-sm font-semibold text-blue-600">19</span>
+                                <span className="text-sm font-semibold text-green-600">19</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-medium text-gray-700">Post impressions</span>
-                                <span className="text-sm font-semibold text-blue-600">33</span>
+                                <span className="text-sm font-semibold text-green-600">33</span>
                             </div>
                         </div>
 
@@ -183,7 +183,7 @@ function Home() {
                     <div className="mb-4">
                         <textarea
                             placeholder="Start a post"
-                            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
                             rows="1"
                         ></textarea>
                         <div className="flex items-center justify-center border-t border-gray-200 pt-2">
@@ -254,19 +254,19 @@ function Home() {
                                 )}
                             </div>
                             <div className="border-t border-gray-200 mt-3 pt-2 flex justify-around text-gray-600 text-sm">
-                                <button className="hover:text-blue-500 flex items-center space-x-1">
+                                <button className="hover:text-orange-500 flex items-center space-x-1">
                                     <i className="far fa-thumbs-up"></i>
                                     <span>Like</span>
                                 </button>
-                                <button className="hover:text-blue-500 flex items-center space-x-1">
+                                <button className="hover:text-orange-500 flex items-center space-x-1">
                                     <i className="far fa-comment"></i>
                                     <span>Comment</span>
                                 </button>
-                                <button className="hover:text-blue-500 flex items-center space-x-1">
+                                <button className="hover:text-orange-500 flex items-center space-x-1">
                                     <i className="fas fa-share"></i>
                                     <span>Share</span>
                                 </button>
-                                <button className="hover:text-blue-500 flex items-center space-x-1">
+                                <button className="hover:text-orange-500 flex items-center space-x-1">
                                     <i className="fas fa-paper-plane"></i>
                                     <span>Send</span>
                                 </button>
