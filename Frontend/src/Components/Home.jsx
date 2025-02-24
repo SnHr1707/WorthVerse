@@ -254,7 +254,7 @@ function Home() {
                                 )}
                             </div>
                             <div className="border-t border-gray-200 mt-3 pt-2 flex justify-around text-gray-600 text-sm">
-                                <button className="hover:text-orange-500 flex items-center space-x-1">
+                                <button className="hover:text-blue-500 flex items-center space-x-1">
                                     <i className="far fa-thumbs-up"></i>
                                     <span>Like</span>
                                 </button>
@@ -262,11 +262,11 @@ function Home() {
                                     <i className="far fa-comment"></i>
                                     <span>Comment</span>
                                 </button>
-                                <button className="hover:text-orange-500 flex items-center space-x-1">
+                                <button className="hover:text-green-500 flex items-center space-x-1">
                                     <i className="fas fa-share"></i>
                                     <span>Share</span>
                                 </button>
-                                <button className="hover:text-orange-500 flex items-center space-x-1">
+                                <button className="hover:text-red-500 flex items-center space-x-1">
                                     <i className="fas fa-paper-plane"></i>
                                     <span>Send</span>
                                 </button>
