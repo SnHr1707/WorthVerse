@@ -7,7 +7,7 @@ function App() {
   return (
     <>
         <Navbar />
-        <div className="flex-grow-1" style={{ overflowY: "auto" }}>
+        <div className="flex-grow-1 overflow-y-hidden" style={{ overflowY: "none" }}>
         <Outlet />
         </div>
     </>
