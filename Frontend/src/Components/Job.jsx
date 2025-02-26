@@ -490,9 +490,9 @@ function Job() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen overflow-y-none">
-
-      {/* Sidebar Filters (Desktop) / Back Button (Expanded View) */}
-      <div className={`w-full md:w-1/4 bg-gray-100 p-4 ${isJobDetailView ? 'md:block' : 'md:block'}`}>
+    
+    {/* Sidebar Filters (Desktop) / Back Button (Expanded View) */}
+      <div className={`w-full md:w-1/4 bg-gray-100 static p-4 ${isJobDetailView ? 'md:block' : 'md:block'}`}>
         {isJobDetailView ? (
           <button onClick={handleGoBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
             <i className="fa-solid fa-arrow-left mr-2"></i>Back to Job Listings
@@ -635,7 +635,7 @@ function Job() {
           </>
         )}
       </div>
-
+    
       {/* Job Listings Section / Job Detail View Section */}
       <div className="flex-1 p-4 overflow-y-scroll">
         {!isJobDetailView ? (
@@ -646,7 +646,7 @@ function Job() {
                 <i className="fa-solid fa-bars-filter text-xl"></i>
               </button>
             </div>
-
+    
             {/* Job Cards */}
             {filteredJobs.map((job) => (
               <div key={job.id} className="border p-4 rounded bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
@@ -674,24 +674,24 @@ function Job() {
               <p className="text-gray-700 mb-3"><i className="fa-solid fa-clipboard-list mr-2"></i><strong>Roles:</strong> {selectedJob.roles.join(", ")}</p>
               <p className="text-gray-700 mb-3"><i className="fa-regular fa-clock mr-2"></i><strong>Duration:</strong> {selectedJob.duration}</p>
               <p className="text-gray-700 mb-3"><i className="fa-regular fa-calendar-xmark mr-2"></i><strong>Last Date to Apply:</strong> {selectedJob.lastDate}</p>
-
+    
               <h3 className="text-xl font-semibold mt-4 mb-2">Minimum Qualifications</h3>
               <ul className="list-disc list-inside text-gray-700 mb-4">
                 {selectedJob.qualifications.map((q, index) => (
                   <li key={index}>{q}</li>
                 ))}
               </ul>
-
+    
               <h3 className="text-xl font-semibold mt-4 mb-2">Skills Required</h3>
               <ul className="list-disc list-inside text-gray-700 mb-4">
                 {selectedJob.skills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))}
               </ul>
-
+    
               <h3 className="text-xl font-semibold mt-4 mb-2">Company Vision</h3>
               <p className="text-gray-700 mb-4">{selectedJob.vision}</p>
-
+    
               <div className="flex justify-center mt-6">
                 <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
                   Apply Now <i className="fa-solid fa-external-link-alt ml-2"></i>
@@ -701,7 +701,7 @@ function Job() {
           )
         )}
       </div>
-
+    
       {/* Mobile Filters Menu */}
       {showMobileFilters && (
         <div className="fixed inset-0 bg-opacity-50 z-50 flex justify-end transition ease ease-in-out">
@@ -848,7 +848,7 @@ function Job() {
         </div>
       )}
     </div>
-  );
+    );
 }
 
 export default Job;
