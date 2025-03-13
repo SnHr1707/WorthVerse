@@ -65,7 +65,7 @@ function Navbar() {
                             <div className="flex space-x-4">
                                 {["home", "connections", "companies", "jobs"].map((page) => (
                                     <Link key={page} to={`/${page}`} onClick={() => setPage(page)}
-                                        className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage === page ? "bg-gray-100" : "bg-white-100"}`}>
+                                        className={`rounded-md px-3 py-2 text-sm font-medium text-black hover:ring-2 transition duration-300 ${currPage === page ? "bg-gray-100 ring-1" : "bg-white-100"}`}>
                                         {page.charAt(0).toUpperCase() + page.slice(1)}
                                     </Link>
                                 ))}
