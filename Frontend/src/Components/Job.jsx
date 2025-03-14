@@ -513,13 +513,23 @@ function Job() {
     <div className="flex flex-col md:flex-row min-h-screen overflow-y-hidden">
 
       {/* Sidebar Filters (Desktop) / Back Button (Expanded View) */}
-      <div className={`w-full md:w-1/4 bg-gray-100 p-4 max-h-[calc(100vh-80px)] overflow-y-auto ${isJobDetailView ? 'md:block' : 'md:block '} ${showMobileFilters ? 'hidden md:block' : 'block md:block'}`}> {/* Mobile filter hidden on desktop by default, desktop filter always shown unless mobile filter active */}
+      <div className={`w-full md:w-1/4 bg-gray-100 p-4 max-h-[calc(100vh-80px)] overflow-y-auto ${isJobDetailView ? 'md:block' : 'hidden md:block '} ${showMobileFilters ? 'hidden md:block' : 'block md:block'}`}> {/* Mobile filter hidden on desktop by default, desktop filter always shown unless mobile filter active */}
         {isJobDetailView ? (
-          <div className="hidden md:block"> {/* Hide on desktop in detail view as per original code, but kept the sidebar div for layout*/}
-            <button onClick={handleGoBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
-              <i className="fa-solid fa-arrow-left mr-2"></i>Back to Job Listings
-            </button>
-          </div>
+          filteredJobs.map((job) => (
+              <div key={job.id} className="border p-4 rounded bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
+                <h3 className="text-lg font-semibold">{job.title}</h3>
+                <p className="text-gray-600"><i className="fa-solid fa-buildings mr-1"></i>{job.company}</p>
+                <p className="text-gray-600"><i className="fa-solid fa-location-dot mr-1 ml-1"></i> {job.country}</p>
+                <p className="text-gray-600 text-sm inline-block px-1 rounded"><i className="fa-sharp fa-solid fa-chart-simple text-gray-600 mr-1"></i>{job.level}</p>
+                <h4 className="mt-3 font-semibold">Minimum Qualifications</h4>
+                <ul className="list-disc list-inside text-sm text-gray-700">
+                  {job.qualifications.map((q, index) => (
+                    <li key={index}>{q}</li>
+                  ))}
+                </ul>
+                <button type="button" className="mt-3 bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleLearnMore(job)}>Learn more</button>
+              </div>
+            ))
         ) : (
           <>
             <h2 className="text-lg font-semibold">Filters</h2>
