@@ -5,10 +5,10 @@ import Navbar from "./Components/Navbar.jsx";
 
 function App() {
   return (
-    <div className="max-h-full">
+    <div className="flex flex-col h-screen">
         <Navbar />
         <div className="flex-grow-1">
-        <Outlet />
+          <Outlet />
         </div>
     </div>
   );

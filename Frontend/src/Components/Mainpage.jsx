@@ -4,7 +4,7 @@ import page1 from "../Assets/page1.jpg";
 
 function Mainpage() {
     return (
-        <div className="h-screen flex flex-col">
+        <div className="h-full flex flex-col">
             {/* <Navbar /> */}
             <div className="flex-1 flex md:flex-row flex-col items-center md:items-stretch"> {/* Responsive flex direction and alignment */}
                 {/* Left Section (Image) - Now placed first in code for visual order */}

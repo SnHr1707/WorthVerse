@@ -7,7 +7,7 @@ const jobListings = [
     title: "Account Executive, Mid-Market Sales, Google Customer Solutions",
     company: "Google",
     locations: ["Mumbai, Maharashtra", "Bengaluru, Karnataka"],
-    country: "India", // Added country
+    country: "India", 
     level: "Mid",
     qualifications: [
       "Bachelor's degree or equivalent practical experience.",
@@ -24,7 +24,7 @@ const jobListings = [
     title: "Software Engineer, Backend",
     company: "Microsoft",
     locations: ["Hyderabad, Telangana"],
-    country: "India", // Added country
+    country: "India", 
     level: "Senior",
     qualifications: [
       "Bachelor's or Master's in Computer Science.",
@@ -41,7 +41,7 @@ const jobListings = [
     title: "Frontend Developer",
     company: "Netflix",
     locations: ["Los Angeles, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Mid",
     qualifications: [
       "3+ years of experience in frontend development.",
@@ -58,7 +58,7 @@ const jobListings = [
     title: "Data Analyst",
     company: "Amazon",
     locations: ["Seattle, Washington"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Early",
     qualifications: [
       "Bachelor's degree in a quantitative field.",
@@ -75,7 +75,7 @@ const jobListings = [
     title: "Product Designer",
     company: "Facebook",
     locations: ["Menlo Park, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Mid",
     qualifications: [
       "3+ years of experience in product design.",
@@ -92,7 +92,7 @@ const jobListings = [
     title: "Intern - Software Engineering",
     company: "Apple",
     locations: ["Cupertino, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Intern",
     qualifications: [
       "Currently enrolled in a Bachelor's or Master's degree in Computer Science.",
@@ -109,7 +109,7 @@ const jobListings = [
     title: "Director of Marketing",
     company: "Tesla",
     locations: ["Austin, Texas"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Director+",
     qualifications: [
       "10+ years of marketing experience.",
@@ -126,7 +126,7 @@ const jobListings = [
     title: "Senior Data Scientist",
     company: "Google",
     locations: ["Mountain View, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Senior",
     qualifications: [
       "Master's or PhD in Data Science or related field.",
@@ -143,7 +143,7 @@ const jobListings = [
     title: "Early Career - Business Development Representative",
     company: "Salesforce",
     locations: ["San Francisco, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Early",
     qualifications: [
       "Bachelor's degree in Business or related field.",
@@ -160,7 +160,7 @@ const jobListings = [
     title: "Mid-Level UX Researcher",
     company: "Airbnb",
     locations: ["San Francisco, California"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Mid",
     qualifications: [
       "Master's degree in Human-Computer Interaction or related field.",
@@ -177,7 +177,7 @@ const jobListings = [
     title: "Senior DevOps Engineer",
     company: "Microsoft",
     locations: ["Redmond, Washington"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Senior",
     qualifications: [
       "5+ years of experience in DevOps engineering.",
@@ -194,7 +194,7 @@ const jobListings = [
     title: "Director of Engineering",
     company: "Amazon",
     locations: ["New York, New York"],
-    country: "USA", // Added country
+    country: "USA", 
     level: "Director+",
     qualifications: [
       "10+ years of experience in software engineering.",
@@ -211,7 +211,7 @@ const jobListings = [
     title: "Software Engineer - Intern",
     company: "Google",
     locations: ["London"],
-    country: "England", // Added country
+    country: "England", 
     level: "Intern",
     qualifications: [
       "Currently pursuing a degree in Computer Science or related field",
@@ -228,7 +228,7 @@ const jobListings = [
     title: "Junior Data Scientist",
     company: "Microsoft",
     locations: ["Dublin"],
-    country: "Ireland", // Added country
+    country: "Ireland", 
     level: "Early",
     qualifications: [
       "Bachelor's degree in Data Science, Statistics, or related field",
@@ -245,7 +245,7 @@ const jobListings = [
     title: "Mid-Level Frontend Engineer",
     company: "Netflix",
     locations: ["Amsterdam"],
-    country: "Netherlands", // Added country
+    country: "Netherlands", 
     level: "Mid",
     qualifications: [
       "3+ years of experience in frontend development",
@@ -262,7 +262,7 @@ const jobListings = [
     title: "Senior Backend Engineer",
     company: "Facebook",
     locations: ["Paris"],
-    country: "France", // Added country
+    country: "France", 
     level: "Senior",
     qualifications: [
       "5+ years of experience in backend development",
@@ -279,7 +279,7 @@ const jobListings = [
     title: "Director of Product Management",
     company: "Apple",
     locations: ["Berlin"],
-    country: "Germany", // Added country
+    country: "Germany", 
     level: "Director+",
     qualifications: [
       "10+ years of experience in product management",
@@ -296,7 +296,7 @@ const jobListings = [
     title: "Mid-Level Cybersecurity Analyst",
     company: "Amazon",
     locations: ["Tokyo"],
-    country: "Japan", // Added country
+    country: "Japan", 
     level: "Mid",
     qualifications: [
       "3+ years of experience in cybersecurity",
@@ -313,7 +313,7 @@ const jobListings = [
     title: "Early Career - Technical Writer",
     company: "Google",
     locations: ["Singapore"],
-    country: "Singapore", // Added country
+    country: "Singapore", 
     level: "Early",
     qualifications: [
       "Bachelor's degree in English, Communications, or related field",
@@ -330,7 +330,7 @@ const jobListings = [
     title: "Senior Machine Learning Engineer",
     company: "Microsoft",
     locations: ["Sydney"],
-    country: "Australia", // Added country
+    country: "Australia", 
     level: "Senior",
     qualifications: [
       "Master's or PhD in Computer Science or related field",
@@ -477,43 +477,11 @@ function Job() {
     setSelectedJob(null);
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (isLocationDropdownOpen &&
-  //         locationInputRef.current &&
-  //         !locationInputRef.current.contains(event.target) &&
-  //         (!locationDropdownRef.current || !locationDropdownRef.current.contains(event.target))
-  //     ) {
-  //       setIsLocationDropdownOpen(false);
-  //     }
-
-  //     if (showLevelDropdown &&
-  //         levelDropdownRef.current &&
-  //         !levelDropdownRef.current.contains(event.target)) {
-  //       setShowLevelDropdown(false);
-  //     }
-
-  //     if (isCompanyDropdownOpen &&
-  //       companyInputRef.current &&
-  //       !companyInputRef.current.contains(event.target) &&
-  //       (!companyDropdownRef.current || !companyDropdownRef.current.contains(event.target))
-  //     ) {
-  //       setIsCompanyDropdownOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [isLocationDropdownOpen, locationInputRef, locationDropdownRef, showLevelDropdown, levelDropdownRef, isCompanyDropdownOpen, companyInputRef, companyDropdownRef]);
-
-
   return (
-    <div className="flex flex-col md:flex-row min-h-screen overflow-y-hidden">
+    <div className="flex flex-col md:flex-row max-h-[calc(100vh-64px)]">
 
       {/* Sidebar Filters (Desktop) / Back Button (Expanded View) */}
-      <div className={`w-full md:w-1/4 bg-gray-100 p-4 max-h-[calc(100vh-80px)] overflow-y-auto ${isJobDetailView ? 'md:block' : 'hidden md:block '} ${showMobileFilters ? 'hidden md:block' : 'block md:block'}`}> {/* Mobile filter hidden on desktop by default, desktop filter always shown unless mobile filter active */}
+      <div className={`w-full md:w-1/4 bg-gray-100 p-4 overflow-y-auto ${isJobDetailView ? 'md:block hidden' : 'hidden md:block '} ${showMobileFilters ? 'hidden md:block' : 'block md:block'}`}> {/* Mobile filter hidden on desktop by default, desktop filter always shown unless mobile filter active */}
         {isJobDetailView ? (
           filteredJobs.map((job) => (
               <div key={job.id} className="border p-4 rounded bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
@@ -566,7 +534,7 @@ function Job() {
                     <div
                       key={index}
                       className="p-2 hover:bg-gray-200 cursor-pointer"
-                      onClick={() => {addCompany(comp); setIsCompanyDropdownOpen(false);}} // Close dropdown on selection
+                      onClick={() => {addCompany(comp); setIsCompanyDropdownOpen(false);}}
                     >
                       {comp}
                     </div>
@@ -671,7 +639,7 @@ function Job() {
       </div>
     
       {/* Job Listings Section / Job Detail View Section */}
-      <div className="flex-1 p-4 max-h-[calc(100vh-80px)] overflow-y-auto">
+      <div className="flex-1 p-4 max-h-[calc(100vh-64px)] overflow-y-auto ">
         {!isJobDetailView ? (
           <>
             <div className="flex justify-between items-center mb-4">
