@@ -7,7 +7,7 @@ function Mainpage() {
         <div className="h-screen flex flex-col">
             {/* <Navbar /> */}
             <div className="flex-1 flex md:flex-row flex-col items-center md:items-stretch"> {/* Responsive flex direction and alignment */}
-                {/* Right Section (Image) - Now placed first in code for visual order */}
+                {/* Left Section (Image) - Now placed first in code for visual order */}
                 <div className="flex-[2] relative"> {/* Image section takes 2/3 space on larger screens */}
                     <img
                         src={page1} // Replace with your image URL
@@ -21,7 +21,7 @@ function Mainpage() {
                     />
                 </div>
 
-                {/* Left Section (Login/Signup Form) - Now placed second in code for visual order */}
+                {/* Right Section (Login/Signup Form) - Now placed second in code for visual order */}
                 <div className="flex-[1] flex flex-col justify-center items-start md:items-start px-6 md:px-20 py-10 md:py-0 text-center"> {/* Text section takes 1/3 space on larger screens */}
                     {/* Welcome Text */}
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">

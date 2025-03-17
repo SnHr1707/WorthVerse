@@ -18,10 +18,12 @@ function Navbar() {
                 setIsProfileOpen(false);
             }
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsOpen(false);
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 100);
             }
         }
-        
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -55,13 +57,15 @@ function Navbar() {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex shrink-0 items-center">
-                            <img className="h-8 w-auto" src={logo} alt="WorthVerse" />
+                            <Link to="/">
+                                <img src={logo} className="h-8 w-auto" alt="WorthVerse"></img>
+                            </Link>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
                                 {["home", "connections", "companies", "jobs"].map((page) => (
                                     <Link key={page} to={`/${page}`} onClick={() => setPage(page)}
-                                        className={`rounded-md px-3 py-2 text-sm font-medium text-black ${currPage === page ? "bg-gray-100" : "bg-white-100"}`}>
+                                        className={`rounded-md px-3 py-2 text-sm font-medium text-black hover:ring-2 transition duration-300 ${currPage === page ? "bg-gray-100 ring-1" : "bg-white-100"}`}>
                                         {page.charAt(0).toUpperCase() + page.slice(1)}
                                     </Link>
                                 ))}
@@ -109,7 +113,7 @@ function Navbar() {
             <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden absolute top-16 left-0 right-0 z-50 bg-white shadow-md`} id="mobile-menu">
                 <div className="px-2 pt-2 pb-3 space-y-1">
                     {["home", "connections", "companies", "jobs"].map((page) => (
-                        <Link key={page} to={`/${page}`} onClick={() => { setPage(page); setIsOpen(false); }}
+                        <Link key={page} to={`/${page}`} onClick={() => setIsOpen(false)}
                             className={`block rounded-md px-3 py-2 text-base font-medium text-black ${currPage === page ? "bg-gray-100" : "hover:bg-gray-100"}`}>
                             {page.charAt(0).toUpperCase() + page.slice(1)}
                         </Link>
