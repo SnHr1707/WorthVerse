@@ -484,7 +484,7 @@ function Job() {
       <div className={`w-full md:w-1/4 bg-gray-100 p-4 overflow-y-auto ${isJobDetailView ? 'md:block hidden' : 'hidden md:block '} ${showMobileFilters ? 'hidden md:block' : 'block md:block'}`}> {/* Mobile filter hidden on desktop by default, desktop filter always shown unless mobile filter active */}
         {isJobDetailView ? (
           filteredJobs.map((job) => (
-              <div key={job.id} className="border p-4 rounded bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
+              <div key={job.id} className="border p-4 bg-white shadow-md mb-4 transition duration-300 hover:scale-102 ease-in-out rounded-2xl">
                 <h3 className="text-lg font-semibold">{job.title}</h3>
                 <p className="text-gray-600"><i className="fa-solid fa-buildings mr-1"></i>{job.company}</p>
                 <p className="text-gray-600"><i className="fa-solid fa-location-dot mr-1 ml-1"></i> {job.country}</p>
@@ -505,7 +505,7 @@ function Job() {
               <label className="block font-medium">Search by Title</label>
               <input
                 type="text"
-                className="w-full p-2 border rounded mt-1"
+                className="w-full p-2 border rounded-xl mt-1 bg-white"
                 placeholder="Search jobs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -517,19 +517,19 @@ function Job() {
               <div className="flex items-center gap-2 mt-1">
                 <input
                   type="text"
-                  className="p-2 border rounded w-full"
+                  className="p-2 border rounded-xl w-full bg-white"
                   placeholder="Enter company"
                   value={companyInput}
                   onChange={handleCompanyInput}
                   onFocus={() => {setIsCompanyDropdownOpen(true); setFilteredCompanies(allCompanies);}}
                   // Removed onBlur to fix dropdown closing issue
                 />
-                <button type="button" className="bg-red-400 hover:bg-red-500 text-white p-2 rounded" onClick={() => addCompany(companyInput)}>
+                <button type="button" className="bg-red-400 hover:bg-red-500 text-white p-2 rounded-xl" onClick={() => addCompany(companyInput)}>
                   +
                 </button>
               </div>
               {isCompanyDropdownOpen && (
-                <div className="absolute bg-white border rounded mt-1 w-full max-h-40 overflow-y-auto z-10" ref={companyDropdownRef}>
+                <div className="absolute bg-white border rounded-xl mt-1 w-full max-h-40 overflow-y-auto z-10" ref={companyDropdownRef}>
                   {filteredCompanies.map((comp, index) => (
                     <div
                       key={index}
@@ -543,7 +543,7 @@ function Job() {
               )}
               <div className="mt-2">
                 {selectedFilters.company.map((comp, index) => (
-                  <div key={index} className="flex justify-between bg-gray-200 p-2 rounded mt-1">
+                  <div key={index} className="flex justify-between bg-gray-200 p-2 rounded-xl mt-1">
                     <span>{comp}</span>
                     <button type="button" className="text-red-500" onClick={() => removeCompany(comp)}>×</button>
                   </div>
@@ -553,7 +553,7 @@ function Job() {
             <div className="mt-4">
               <label className="block font-medium">Sort by</label>
               <select
-                className="w-full p-2 border rounded mt-1"
+                className="w-full p-2 border rounded-xl mt-1 bg-white"
                 value={selectedFilters.sort}
                 onChange={(e) => setSelectedFilters({ ...selectedFilters, sort: e.target.value })}
               >
@@ -567,23 +567,23 @@ function Job() {
               <div className="relative" ref={levelDropdownRef}>
                 <button
                   type="button"
-                  className="w-full p-2 border rounded mt-1 text-left"
+                  className="w-full p-2 border rounded-xl mt-1 text-left bg-white"
                   onClick={toggleLevelDropdown}
                 >
                   {selectedFilters.level.length > 0 ? selectedFilters.level.join(", ") : "Select Level"}
                 </button>
                 {showLevelDropdown && (
-                  <div className="absolute left-0 right-0 z-10 mt-1 bg-white border rounded shadow-md" ref={levelDropdownRef}>
+                  <div className="absolute left-0 right-0 z-10 mt-1 bg-white border rounded-xl shadow-md" ref={levelDropdownRef}>
                     {allLevels.map((level) => (
-                      <div key={level} className="px-4 py-2 hover:bg-gray-100">
+                      <div key={level} className="px-4 py-2 hover:bg-gray-100 rounded-xl">
                         <label className="inline-flex items-center">
                           <input
                             type="checkbox"
-                            className="form-checkbox h-4 w-4 text-red-500"
+                            className="form-checkbox h-4 w-4 text-red-500 bg-white"
                             value={level}
                             checked={selectedFilters.level.includes(level)}
                             onChange={() => handleLevelChange(level)}
-                            onClick={() => setTimeout(() => setShowLevelDropdown(true), 0)} // Keep dropdown open on checkbox click
+                            onClick={() => setTimeout(() => setShowLevelDropdown(true), 0)}
                           />
                           <span className="ml-2">{level}</span>
                         </label>
@@ -598,19 +598,19 @@ function Job() {
               <div className="flex items-center gap-2 mt-1">
                 <input
                   type="text"
-                  className="p-2 border rounded w-full"
+                  className="p-2 border rounded-xl w-full"
                   placeholder="Enter location"
                   value={locationInput}
                   onChange={handleLocationInput}
                   onFocus={() => {setIsLocationDropdownOpen(true); setFilteredLocations(allLocations);}}
                   // Removed onBlur to fix dropdown closing issue
                 />
-                <button type="button" className="bg-red-400 hover:bg-red-500 text-white p-2 rounded" onClick={() => addLocation(locationInput)}>
+                <button type="button" className="bg-red-400 hover:bg-red-500 text-white p-2 rounded-xl" onClick={() => addLocation(locationInput)}>
                   +
                 </button>
               </div>
               {isLocationDropdownOpen && (
-                <div className="absolute bg-white border rounded mt-1 w-full max-h-40 overflow-y-auto z-10" ref={locationDropdownRef}>
+                <div className="absolute bg-white border rounded-xl mt-1 w-full max-h-40 overflow-y-auto z-10" ref={locationDropdownRef}>
                   {filteredLocations.map((loc, index) => (
                     <div
                       key={index}
@@ -624,14 +624,14 @@ function Job() {
               )}
               <div className="mt-2">
                 {selectedFilters.location.map((loc, index) => (
-                  <div key={index} className="flex justify-between bg-gray-200 p-2 rounded mt-1">
+                  <div key={index} className="flex justify-between bg-gray-200 p-2 rounded-xl mt-1">
                     <span>{loc}</span>
                     <button type="button" className="text-red-500" onClick={() => removeLocation(loc)}>×</button>
                   </div>
                 ))}
               </div>
             </div>
-            <button type="button" className="mt-4 w-full bg-red-500 text-white p-2 rounded" onClick={clearFilters}>
+            <button type="button" className="mt-4 w-full bg-red-500 text-white p-2 rounded-xl" onClick={clearFilters}>
               Clear Filters
             </button>
           </>
@@ -639,7 +639,7 @@ function Job() {
       </div>
     
       {/* Job Listings Section / Job Detail View Section */}
-      <div className="flex-1 p-4 max-h-[calc(100vh-64px)] overflow-y-auto ">
+      <div className="flex-1 p-4 max-h-[calc(100vh-64px)] bg-gray-100 overflow-y-auto ">
         {!isJobDetailView ? (
           <>
             <div className="flex justify-between items-center mb-4">
@@ -651,7 +651,7 @@ function Job() {
     
             {/* Job Cards */}
             {filteredJobs.map((job) => (
-              <div key={job.id} className="border p-4 rounded bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
+              <div key={job.id} className="border p-4 rounded-2xl bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
                 <h3 className="text-lg font-semibold">{job.title}</h3>
                 <p className="text-gray-600"><i className="fa-solid fa-buildings mr-1"></i>{job.company}</p>
                 <p className="text-gray-600"><i className="fa-solid fa-location-dot mr-1 ml-1"></i> {job.country}</p>
