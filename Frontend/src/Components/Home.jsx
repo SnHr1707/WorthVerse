@@ -166,9 +166,9 @@ function Home() {
 
 
     return (
-        <div className="bg-gray-100 font-sans antialiased">
-            <div className="container mx-auto px-4 py-6">
-                <div className="flex w-full max-w-7xl mx-auto">
+        <div className="bg-gray-100 font-sans antialiased min-h-full">
+            <div className="container max-h-[calc(100vh-90px)] mx-auto px-4 py-6">
+                <div className="flex w-full max-w-7xl mx-auto max-h-[calc(100vh-90px)]">
 
                     {/* Left Sidebar */}
                     <div className="w-1/4 hidden md:block pr-4">
@@ -241,7 +241,7 @@ function Home() {
                     </div>
 
                     {/* Middle Feed */}
-                    <div className="w-full  overflow-y-auto pb-5" style={{ maxHeight: '90vh' }}>
+                    <div className="w-full  overflow-y-auto pb-5 max-h-[calc(100vh-104px)]">
                         {/* Feed Posts (mapped from demoPosts) */}
                         {demoPosts.map((post) => (
                             <div key={post.post_id} className="bg-white rounded-lg shadow-md p-4 mb-4">
