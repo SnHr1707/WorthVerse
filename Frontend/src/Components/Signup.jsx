@@ -18,7 +18,7 @@ function Signup() {
         setEmailSentMessage(''); // Clear previous email messages
         setIsSendingCode(true);
         try {
-            const response = await fetch('http://localhost:5000/api/send-verification-code', {
+            const response = await fetch('http://localhost:5000/api/auth/send-verification-code', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ function Signup() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/signup', {
+            const response = await fetch('http://localhost:5000/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
