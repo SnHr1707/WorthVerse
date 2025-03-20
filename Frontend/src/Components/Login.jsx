@@ -4,14 +4,40 @@ import logo from '../Assets/logo.png';
 
 function Login() {
     const [credentials, setCredentials] = useState({ emailorusername: "", password: "" });
+    const [message, setMessage] = useState('');
 
     const handleOnChange = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value });
     };
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        console.log("Form submitted", credentials);
+        setMessage(''); // Clear previous messages
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/login', { // Updated endpoint URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setMessage({ text: data.message, type: 'success' });
+                // Optionally redirect to homepage or dashboard after successful login
+                // Example: history.push('/dashboard'); (if you are using react-router-dom history)
+                console.log("Login Successful");
+            } else {
+                setMessage({ text: data.message, type: 'error' });
+                console.error("Login Failed:", data.message);
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setMessage({ text: 'Login failed. Please try again later.', type: 'error' });
+        }
     };
 
     return (
@@ -24,9 +50,14 @@ function Login() {
                     <h2 className="text-xl font-semibold text-gray-800">WorthVerse</h2>
                     <h3 className="text-lg font-bold text-gray-800">Welcome</h3>
                 </div>
+                {message && (
+                    <div className={`mb-3 p-2 rounded ${message.type === 'success' ? 'bg-green-200 text-green-800 text-center' : 'bg-red-200 text-red-800 text-center'}`}>
+                        {message.text}
+                    </div>
+                )}
                 <form onSubmit={handleLogin}>
-                    <input name='emailorusername' type="text" className="w-full p-2 mb-3 border rounded" placeholder="Enter Email or Username" value={credentials.emailorusername} onChange={handleOnChange} />
-                    <input name='password' type="password" className="w-full p-2 mb-3 border rounded" placeholder="Password" value={credentials.password} onChange={handleOnChange} />
+                    <input name='emailorusername' type="text" className="w-full p-2 mb-3 border rounded" placeholder="Enter Email or Username" value={credentials.emailorusername} onChange={handleOnChange} required />
+                    <input name='password' type="password" className="w-full p-2 mb-3 border rounded" placeholder="Password" value={credentials.password} onChange={handleOnChange} required />
                     <div className="flex justify-between items-center text-sm mb-3">
                         <label className="flex items-center">
                             <input type="checkbox" className="mr-2" />
