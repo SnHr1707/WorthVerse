@@ -68,7 +68,7 @@ function Login() {
                     <button type="submit" className="w-full bg-gray-800 text-white p-2 rounded">Login</button>
                 </form>
                 <div className="text-center mt-4 text-sm">
-                    <p>New Here? <Link to="/signup" className="text-gray-800 font-semibold underline">Create an Account</Link></p>
+                    <p>New Here? <Link to="/signup" className="text-gray-800 font-semibold hover:underline">Create an Account</Link></p>
                 </div>
             </div>
         </div>

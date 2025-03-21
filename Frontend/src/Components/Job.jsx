@@ -495,7 +495,7 @@ function Job() {
                     <li key={index}>{q}</li>
                   ))}
                 </ul>
-                <button type="button" className="mt-3 bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleLearnMore(job)}>Learn more</button>
+                <button type="button" className="mt-3 bg-blue-500 text-white px-3 py-1 rounded hover:cursor-pointer" onClick={() => handleLearnMore(job)}>Learn more</button>
               </div>
             ))
         ) : (
@@ -662,12 +662,13 @@ function Job() {
                     <li key={index}>{q}</li>
                   ))}
                 </ul>
-                <button type="button" className="mt-3 bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleLearnMore(job)}>Learn more</button>
+                <button type="button" className="mt-3 bg-blue-500 text-white px-3 py-1 rounded hover:cursor-pointer" onClick={() => handleLearnMore(job)}>Learn more</button>
               </div>
             ))}
           </>
         ) : (
           selectedJob && (
+            
             <div className="bg-white p-6 rounded-lg shadow-xl">
               <button type="button" onClick={handleGoBack} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
               <i className="fa-solid fa-arrow-left mr-2"></i>Back to Job Listings

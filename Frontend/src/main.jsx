@@ -9,6 +9,7 @@ import LoginPage from "./Pages/Login.page.jsx";
 import MyProfilePage from "./Pages/MyProfile.page.jsx";
 import JobPage from "./Pages/Job.page.jsx";
 import SettingsPage from "./Pages/Settings.page.jsx";
+import ConnectionPage from "./Pages/Connection.page.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/connections",
-        element: <MainPage />,
+        element: <ConnectionPage />,
       },
       {
         path: "/jobs",
