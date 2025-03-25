@@ -17,6 +17,7 @@ function Signup() {
     const handleSendCode = async () => {
         setEmailSentMessage(''); // Clear previous email messages
         setIsSendingCode(true);
+        setMessage(false);
         try {
             const response = await fetch('http://localhost:5000/api/auth/send-verification-code', {
                 method: 'POST',
@@ -46,6 +47,7 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setEmailSentMessage(false);
         setMessage(''); // Clear previous signup messages
 
         if (!isEmailVerified) { // Basic check, you can enhance verification flow
@@ -138,7 +140,7 @@ function Signup() {
                     <button type="submit" className="w-full bg-gray-800 text-white p-2 rounded">Sign up</button>
                 </form>
                 <div className="text-center mt-4 text-sm">
-                    <p>Already have an account? <Link to="/login" className="text-gray-800 font-semibold">Login</Link></p>
+                    <p>Already have an account? <Link to="/login" className="text-gray-800 font-semibold hover:underline">Login</Link></p>
                 </div>
             </div>
         </div>
