@@ -4,6 +4,8 @@ function MyProfile() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [sortedExperience, setSortedExperience] = useState([]); // Define sortedExperience
+    const [sortedEducation, setSortedEducation] = useState([]);   // Define sortedEducation
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -11,7 +13,7 @@ function MyProfile() {
             setError(null);
             try {
                 // Get username from localStorage
-                const username = localStorage.getItem('loggedInUsername'); // <--- Get username from localStorage
+                const username = localStorage.getItem('loggedInUsername');
 
                 if (!username) {
                     setError(new Error("Username not found in localStorage."));
@@ -24,6 +26,31 @@ function MyProfile() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+
+                // Sort experience based on duration (most recent first)
+                const sortedExp = [...data.experience].sort((a, b) => {
+                    // Assuming duration is in format "Start Year - End Year" or "Start Year - Present"
+                    const getEndDate = (duration) => {
+                        const parts = duration.split(' - ');
+                        const endDate = parts[1] || parts[0]; // Use start date if no end date (unlikely but for safety)
+                        return endDate === 'Present' ? new Date().getFullYear() : parseInt(endDate, 10);
+                    };
+
+                    const endDateA = getEndDate(a.duration);
+                    const endDateB = getEndDate(b.duration);
+
+                    return endDateB - endDateA; // Sort in descending order of end year
+                });
+                setSortedExperience(sortedExp);
+
+
+                // Sort education based on year (most recent first)
+                const sortedEdu = [...data.education].sort((a, b) => {
+                    return parseInt(b.year, 10) - parseInt(a.year, 10); // Sort in descending order of year
+                });
+                setSortedEducation(sortedEdu);
+
+
                 setProfile(data);
                 setLoading(false);
             } catch (e) {
@@ -52,7 +79,6 @@ function MyProfile() {
         return <div className="text-center">Profile not found.</div>;
     }
 
-    // Sorting functions remain the same ...
 
     return (
         <div className="bg-gray-100 p-6">
