@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../Assets/logo.png';
 
 function Login() {
     const [credentials, setCredentials] = useState({ emailorusername: "", password: "" });
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleOnChange = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -12,10 +13,10 @@ function Login() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        setMessage(''); // Clear previous messages
+        setMessage('');
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/login', { // Updated endpoint URL
+            const response = await fetch('http://localhost:5000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,9 +28,13 @@ function Login() {
 
             if (response.ok) {
                 setMessage({ text: data.message, type: 'success' });
-                // Optionally redirect to homepage or dashboard after successful login
-                // Example: history.push('/dashboard'); (if you are using react-router-dom history)
                 console.log("Login Successful");
+
+                // Store username in localStorage
+                localStorage.setItem('loggedInUsername', data.username); // <--- Store username
+
+                // Redirect to MyProfile page
+                navigate('/profile'); // Redirect to the MyProfile page
             } else {
                 setMessage({ text: data.message, type: 'error' });
                 console.error("Login Failed:", data.message);

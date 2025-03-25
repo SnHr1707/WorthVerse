@@ -1,88 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function MyProfile() {
-    const profile = {
-        "name": "John Doe",
-        "title": "Software Engineer | Web Developer",
-        "image": "https://via.placeholder.com/100",
-        "about": "Passionate software engineer with experience in web development, AI, and cloud computing.",
-        "skills": ["React", "Node.js", "JavaScript", "Python", "Tailwind CSS", "MongoDB"],
-        "experience": [
-            {
-                "position": "Software Engineer",
-                "company": "XYZ Tech",
-                "duration": "Jan 2023 - Present",
-                "description": "Working on web applications and improving user experience with cutting-edge technologies."
-            },
-            {
-                "position": "Intern",
-                "company": "Tech Startup",
-                "duration": "Jan 2021 - Apr 2021",
-                "description": "Worked on AI-based web applications and optimized front-end performance."
-            },
-            {
-                "position": "Frontend Developer",
-                "company": "ABC Solutions",
-                "duration": "May 2021 - Dec 2022",
-                "description": "Developed user-friendly UI components using React and Tailwind CSS."
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [sortedExperience, setSortedExperience] = useState([]); // Define sortedExperience
+    const [sortedEducation, setSortedEducation] = useState([]);   // Define sortedEducation
+
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                // Get username from localStorage
+                const username = localStorage.getItem('loggedInUsername');
+
+                if (!username) {
+                    setError(new Error("Username not found in localStorage."));
+                    setLoading(false);
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:5000/api/profile/${username}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Sort experience based on duration (most recent first)
+                const sortedExp = [...data.experience].sort((a, b) => {
+                    // Assuming duration is in format "Start Year - End Year" or "Start Year - Present"
+                    const getEndDate = (duration) => {
+                        const parts = duration.split(' - ');
+                        const endDate = parts[1] || parts[0]; // Use start date if no end date (unlikely but for safety)
+                        return endDate === 'Present' ? new Date().getFullYear() : parseInt(endDate, 10);
+                    };
+
+                    const endDateA = getEndDate(a.duration);
+                    const endDateB = getEndDate(b.duration);
+
+                    return endDateB - endDateA; // Sort in descending order of end year
+                });
+                setSortedExperience(sortedExp);
+
+
+                // Sort education based on year (most recent first)
+                const sortedEdu = [...data.education].sort((a, b) => {
+                    return parseInt(b.year, 10) - parseInt(a.year, 10); // Sort in descending order of year
+                });
+                setSortedEducation(sortedEdu);
+
+
+                setProfile(data);
+                setLoading(false);
+            } catch (e) {
+                setError(e);
+                setLoading(false);
+                console.error("Error fetching profile:", e);
             }
-        ],
-        "education": [
-            {
-                "degree": "Bachelor of Computer Science",
-                "institution": "ABC University",
-                "year": "2019 - 2023"
-            },
-            {
-                "degree": "High School Diploma",
-                "institution": "XYZ High School",
-                "year": "2017 - 2019"
-            }
-        ],
-        "links": {
-            "github": "https://github.com/johndoe",
-            "portfolio": "https://johndoe.dev"
-        },
-        "certifications": [
-            {
-                "title": "React Developer Certification",
-                "authority": "Meta",
-                "link": "https://example.com/react-cert"
-            },
-            {
-                "title": "AWS Certified Solutions Architect",
-                "authority": "Amazon Web Services",
-                "link": "https://example.com/aws-cert"
-            },
-            {
-                "title": "Google Cloud Associate",
-                "authority": "Google",
-                "link": "https://example.com/gcp-cert"
-            }
-        ]
-    };
+        };
+
+        fetchProfileData();
+    }, []);
 
     const [showAllExperience, setShowAllExperience] = useState(false);
     const [showAllEducation, setShowAllEducation] = useState(false);
     const [showAllCertifications, setShowAllCertifications] = useState(false);
 
-    // Sorting experience in descending order (latest first)
-    const sortedExperience = [...profile.experience].sort((a, b) => 
-        new Date(b.duration.split(" - ")[1] || new Date()) - new Date(a.duration.split(" - ")[1] || new Date())
-    );
+    if (loading) {
+        return <div className="text-center">Loading profile...</div>;
+    }
 
-    // Sorting education in descending order (latest first)
-    const sortedEducation = [...profile.education].sort((a, b) => 
-        parseInt(b.year.split(" - ")[1]) - parseInt(a.year.split(" - ")[1])
-    );
+    if (error) {
+        return <div className="text-center text-red-500">Error loading profile: {error.message}</div>;
+    }
+
+    if (!profile) {
+        return <div className="text-center">Profile not found.</div>;
+    }
+
 
     return (
         <div className="bg-gray-100 p-6">
             <div className="max-w-4xl mx-auto bg-white p-6 max-h-[calc(100vh-80px)] overflow-y-auto">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">My Profile</h1>
-
-                {/* Profile Header */}
-                <div className="flex items-center space-x-4 mb-4">
+                {/* ... rest of your MyProfile.jsx component - rendering profile data ... */}
+                 {/* Profile Header */}
+                 <div className="flex items-center space-x-4 mb-4">
                     <img
                         src={profile.image}
                         alt="Profile"

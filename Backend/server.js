@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes'); // Import auth routes
+const profileRoutes = require('./routes/profileRoutes'); // Import profile routes  <--- Add this
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ mongoose.connect(dbURI, {
 
 // Mount auth routes under /api path
 app.use('/api/auth', authRoutes); // Mount auth routes under /api/auth
+app.use('/api/profile', profileRoutes); // Mount profile routes under /api/profile  <--- Add this
 
 // Start the server
 app.listen(port, () => {

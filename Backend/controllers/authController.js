@@ -108,6 +108,7 @@ exports.login = async (req, res) => { // Implement login controller
 
         const user = await User.findOne({ $or: [{ username: emailorusername }, { email: emailorusername }] });
 
+        
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' }); // 401 Unauthorized
         }
@@ -118,8 +119,9 @@ exports.login = async (req, res) => { // Implement login controller
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        res.status(200).json({ message: 'Login successful' }); // 200 OK
-        // In a real app, you would generate and send a JWT here for session management
+        if (user) {
+            return res.status(200).json({ message: "Login successful", username: user.username }); // <--- Include username in response
+        } 
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ message: 'Login failed', error: error }); // 500 Internal Server Error
