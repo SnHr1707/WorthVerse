@@ -654,7 +654,7 @@ function Job() {
               <div key={job.id} className="border p-4 rounded-2xl bg-white shadow-md mb-4 transition duration-300 hover:scale-101 ease-in-out">
                 <h3 className="text-lg font-semibold">{job.title}</h3>
                 <p className="text-gray-600"><i className="fa-solid fa-buildings mr-1"></i>{job.company}</p>
-                <p className="text-gray-600"><i className="fa-solid fa-location-dot mr-1 ml-1"></i> {job.country}</p>
+                <p className="text-gray-600"><i className="fa-solid fa-location-dot mr-1 ml-1"></i>{job.country}</p>
                 <p className="text-gray-600 text-sm inline-block px-1 rounded"><i className="fa-sharp fa-solid fa-chart-simple text-gray-600 mr-1"></i>{job.level}</p>
                 <h4 className="mt-3 font-semibold">Minimum Qualifications</h4>
                 <ul className="list-disc list-inside text-sm text-gray-700">
