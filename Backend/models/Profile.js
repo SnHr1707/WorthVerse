@@ -2,12 +2,12 @@
 const mongoose = require('mongoose');
 
 const profileSchema = new mongoose.Schema({
-    username: { type: String, required: true, index: true, unique: true }, // Assuming username is unique for each profile
+    username: { type: String, required: true, index: true, unique: true },
     name: { type: String },
     title: { type: String },
     image: { type: String },
     about: { type: String },
-    skills: [{ type: String }], // Array of strings
+    skills: [{ type: String }],
     experience: [{
         position: { type: String },
         company: { type: String },
@@ -28,8 +28,8 @@ const profileSchema = new mongoose.Schema({
         authority: { type: String },
         link: { type: String }
     }],
-    profileViewers: { type: Number, default: 0 }, // Keeping these from previous model
-    postImpressions: { type: Number, default: 0 }  // Keeping these from previous model
+    profileViewers: { type: Number, default: 0 },
+    postImpressions: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('Profile', profileSchema, 'Profile_Info');

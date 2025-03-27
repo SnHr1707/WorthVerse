@@ -4,21 +4,29 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const User = require('../models/User'); // Import User model
+const jwt = require('jsonwebtoken'); // Import JWT
+const User = require('../models/User');
 
 // In-memory storage for verification codes (TEMPORARY)
 const verificationCodes = {};
 
-// Nodemailer transporter setup (Make sure EMAIL_USER and EMAIL_PASS are in your .env and loaded in server.js)
+// Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // or your email service
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     }
 });
 
-exports.sendVerificationCode = async (req, res) => { // Export functions
+// Function to create JWT token
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, { // Use JWT_SECRET from .env
+        expiresIn: '1h' // Token expiration time - you can adjust this
+    });
+};
+
+exports.sendVerificationCode = async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
@@ -50,11 +58,16 @@ exports.sendVerificationCode = async (req, res) => { // Export functions
     });
 };
 
+exports.checkAuth = (req, res) => {
+    // If requireAuth middleware passed, it means the user is authenticated.
+    // Just send a 200 OK response.
+    res.status(200).json({ message: 'Authenticated' });
+};
+
 exports.signup = async (req, res) => {
     try {
         const { fullname, username, email, password, confirmpassword, verificationCode } = req.body;
 
-        // Basic validation
         if (!fullname || !username || !email || !password || !confirmpassword || !verificationCode) {
             return res.status(400).json({ message: 'All fields are required, including verification code' });
         }
@@ -62,43 +75,44 @@ exports.signup = async (req, res) => {
             return res.status(400).json({ message: 'Passwords do not match' });
         }
 
-        // Check if username or email already exists
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(409).json({ message: 'Username or email already exists' });
         }
 
-        // Verify verification code
         const storedVerification = verificationCodes[email];
         if (!storedVerification || storedVerification.code !== verificationCode || storedVerification.expiry < Date.now()) {
             return res.status(400).json({ message: 'Invalid or expired verification code' });
         }
-        delete verificationCodes[email]; // Remove code after successful verification
+        delete verificationCodes[email];
 
-        // Hash the password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create new user
         const newUser = new User({
             fullname,
             username,
             email,
             password: hashedPassword,
-            isEmailVerified: true // Mark email as verified
+            isEmailVerified: true
         });
 
-        // Save user to database
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered and email verified successfully' });
+        // Create JWT token
+        const token = createToken(newUser._id);
+
+        // Send token in HTTP-only cookie
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600 * 2000 });
+
+        res.status(201).json({ message: 'User registered and email verified successfully', username: newUser.username });
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).json({ message: 'Signup failed', error: error });
     }
 };
 
-exports.login = async (req, res) => { // Implement login controller
+exports.login = async (req, res) => {
     try {
         const { emailorusername, password } = req.body;
 
@@ -108,9 +122,8 @@ exports.login = async (req, res) => { // Implement login controller
 
         const user = await User.findOne({ $or: [{ username: emailorusername }, { email: emailorusername }] });
 
-        
         if (!user) {
-            return res.status(401).json({ message: 'Invalid credentials' }); // 401 Unauthorized
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -119,11 +132,22 @@ exports.login = async (req, res) => { // Implement login controller
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
+        // Create JWT token
+        const token = createToken(user._id);
+
+        // Send token in HTTP-only cookie
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 3600 * 1000 }); // 1 hour maxAge
+
         if (user) {
-            return res.status(200).json({ message: "Login successful", username: user.username }); // <--- Include username in response
-        } 
+            return res.status(200).json({ message: "Login successful", username: user.username }); // Include username
+        }
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: 'Login failed', error: error }); // 500 Internal Server Error
+        res.status(500).json({ message: 'Login failed', error: error });
     }
+};
+
+exports.logout = (req, res) => {
+    res.cookie('jwt', '', { maxAge: 0, httpOnly: true }); // Clear the jwt cookie
+    res.status(200).json({ message: 'Logged out successfully' });
 };

@@ -22,6 +22,7 @@ function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(credentials),
+                credentials: 'include', // Important: Include cookies in the request
             });
 
             const data = await response.json();
@@ -30,11 +31,7 @@ function Login() {
                 setMessage({ text: data.message, type: 'success' });
                 console.log("Login Successful");
 
-                // Store username in localStorage
-                localStorage.setItem('loggedInUsername', data.username); // <--- Store username
-
-                // Redirect to MyProfile page
-                navigate('/profile'); // Redirect to the MyProfile page
+                navigate('/profile');
             } else {
                 setMessage({ text: data.message, type: 'error' });
                 console.error("Login Failed:", data.message);
