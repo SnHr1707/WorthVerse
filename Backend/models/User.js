@@ -1,3 +1,5 @@
+// --- START OF FILE User.js ---
+// User.js
 // Backend/models/User.js
 
 const mongoose = require('mongoose');

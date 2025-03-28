@@ -1,3 +1,5 @@
+// --- START OF FILE authRoutes.js ---
+// authRoutes.js
 // Backend/routes/authRoutes.js
 
 const express = require('express');
@@ -10,6 +12,6 @@ router.post('/send-verification-code', authController.sendVerificationCode);
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
-router.get('/check-auth', authMiddleware.requireAuth, authController.checkAuth); // New route to check authentication status
+router.get('/check-auth', authMiddleware.requireAuth, authController.checkAuth); // Route to check authentication status
 
 module.exports = router;

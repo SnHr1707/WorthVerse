@@ -3,9 +3,9 @@ import MyProfile from '../Components/MyProfile';
 import PrivateRoute from "../Components/PrivateRoute.jsx";
 function MyProfilePage() {
   return (
-    <PrivateRoute>
+    // <PrivateRoute>
         <MyProfile/>
-    </PrivateRoute>
+    // </PrivateRoute>
   );
 }
 
