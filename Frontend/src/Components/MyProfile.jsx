@@ -32,8 +32,8 @@ function MyProfile() {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            credentials: 'include',
                         },
+                        credentials: 'include',
                     });
 
                     if (!usernameResponse.ok) {
