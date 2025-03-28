@@ -1,4 +1,5 @@
-// Backend/server.js
+// --- START OF FILE server.js ---
+// server.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,6 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Add cookie-parser
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,6 +34,7 @@ mongoose.connect(dbURI, {
 // Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/user', userRoutes);
 
 // Start the server
 app.listen(port, () => {

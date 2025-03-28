@@ -1,3 +1,5 @@
+// --- START OF FILE Profile.js ---
+// Profile.js
 // backend/models/Profile.js
 const mongoose = require('mongoose');
 

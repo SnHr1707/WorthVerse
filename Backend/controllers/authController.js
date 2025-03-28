@@ -1,3 +1,5 @@
+// --- START OF FILE authController.js ---
+// authController.js
 // Backend/controllers/authController.js
 
 const mongoose = require('mongoose');
@@ -20,8 +22,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to create JWT token
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { // Use JWT_SECRET from .env
+const createToken = (id, username) => { // Include username in token payload
+    return jwt.sign({ id, username }, process.env.JWT_SECRET, { // Use JWT_SECRET from .env
         expiresIn: '1h' // Token expiration time - you can adjust this
     });
 };
@@ -100,7 +102,7 @@ exports.signup = async (req, res) => {
         await newUser.save();
 
         // Create JWT token
-        const token = createToken(newUser._id);
+        const token = createToken(newUser._id, newUser.username); // Include username in token
 
         // Send token in HTTP-only cookie
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600 * 2000 });
@@ -133,7 +135,7 @@ exports.login = async (req, res) => {
         }
 
         // Create JWT token
-        const token = createToken(user._id);
+        const token = createToken(user._id, user.username); // Include username in token
 
         // Send token in HTTP-only cookie
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3600 * 1000 }); // 1 hour maxAge
