@@ -14,3 +14,18 @@ exports.getMe = (req, res) => {
         res.status(401).json({ message: 'Unauthorized - User data not found in token' });
     }
 };
+
+exports.getAllOtherProfiles = async (req, res) => {
+    const loggedInUsername = req.user.username;
+    try {
+        const profiles = await Profile.find({ username: { $ne: loggedInUsername } })
+                                      .select('username name title image');
+
+        console.log(`Fetched ${profiles.length} other profiles for suggestions/connections view.`);
+        res.status(200).json(profiles);
+
+    } catch (error) {
+        console.error(`Error fetching other profiles for ${loggedInUsername}:`, error);
+        res.status(500).json({ message: 'Server error while fetching user profiles.', error: error.message });
+    }
+};
