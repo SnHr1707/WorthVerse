@@ -10,7 +10,7 @@ const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const userRoutes = require('./routes/userRoutes');
 const connectionRoutes = require('./routes/connectionRoutes'); // Import connection routes
-
+const jobRoutes = require('./routes/jobRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -37,8 +37,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/user', userRoutes); // Changed base path for clarity
 app.use('/api/connections', connectionRoutes); // Mount connection routes
-
+app.use('/api/jobs', jobRoutes);
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+// --- END OF REGENERATED FILE server.js ---

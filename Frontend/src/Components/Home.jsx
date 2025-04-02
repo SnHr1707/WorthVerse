@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect and useState
+//Home.jsx
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -13,7 +14,7 @@ function Home() {
             image_urls: ["https://placehold.co/400x300", "https://placehold.co/400x300", "https://placehold.co/400x200"],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "CSE Student at Nirma University",
-            time_posted: new Date(Date.now() - 20 * 60 * 60 * 1000), // 20 hours ago
+            time_posted: new Date(Date.now() - 20 * 60 * 60 * 1000),
             likeCount: 25,
         },
         {
@@ -26,7 +27,7 @@ function Home() {
             image_urls: [],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Software Engineer",
-            time_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+            time_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
             likeCount: 12,
         },
         {
@@ -39,7 +40,7 @@ function Home() {
             image_urls: ["https://placehold.co/600x400"],
              user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Data Scientist",
-            time_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+            time_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
             likeCount: 30,
         },
         {
@@ -52,7 +53,7 @@ function Home() {
             image_urls: [],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "CSE Student at Nirma University",
-            time_posted: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+            time_posted: new Date(Date.now() - 3 * 60 * 60 * 1000),
             likeCount: 5,
         },
         {
@@ -65,7 +66,7 @@ function Home() {
             image_urls: ["https://placehold.co/500x300", "https://placehold.co/500x300", "https://placehold.co/500x300"],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Photographer",
-            time_posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+            time_posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
             likeCount: 42,
         },
         {
@@ -78,7 +79,7 @@ function Home() {
             image_urls: [],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Software Engineer",
-            time_posted: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+            time_posted: new Date(Date.now() - 6 * 60 * 60 * 1000),
             likeCount: 8,
         },
         {
@@ -91,7 +92,7 @@ function Home() {
             image_urls: [],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "UI/UX Designer",
-            time_posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+            time_posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
             likeCount: 19,
         },
         {
@@ -104,7 +105,7 @@ function Home() {
             image_urls: ["https://placehold.co/400x400"],
              user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Data Scientist",
-            time_posted: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
+            time_posted: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
             likeCount: 55,
         },
         {
@@ -117,19 +118,17 @@ function Home() {
             image_urls: [],
             user_profile_pic: "https://via.placeholder.com/50",
             user_designation: "Project Manager",
-            time_posted: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 2 weeks ago
+            time_posted: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
             likeCount: 71,
         },
     ];
 
     const [likedPosts, setLikedPosts] = useState({});
     const [commentedPosts, setCommentedPosts] = useState({});
-    const [profile, setProfile] = useState(null); // State to store profile data
+    const [profile, setProfile] = useState(null);
 
     // Function to fetch profile data
     const fetchProfile = async () => {
-        // Assuming you have username available after login, maybe stored in localStorage or context.
-        // For this example, let's assume username is 'testuser' for testing.  <--- Replace 'testuser' with actual logged-in username
         const username = 'testuser';
         try {
             const response = await fetch(`http://localhost:5000/api/profile/${username}`);
@@ -145,8 +144,8 @@ function Home() {
     };
 
     useEffect(() => {
-        fetchProfile(); // Fetch profile data when component mounts
-    }, []); // Empty dependency array ensures it runs only once after initial render
+        fetchProfile();
+    }, []);
 
 
     const toggleLike = (postId) => { /* ... your toggleLike function ... */ };
@@ -162,11 +161,11 @@ function Home() {
                     {/* Left Sidebar */}
                     <div className="w-1/4 hidden md:block pr-4">
                         <div className="bg-white rounded-lg shadow-md p-4 sticky top-6">
-                            {profile && ( // Conditionally render profile info when data is available
+                            {profile && (
                                 <>
                                     <div className="relative">
                                         <img
-                                            src={profile.profile_pic || "https://via.placeholder.com/150"} // Use profile pic from data or default
+                                            src={profile.profile_pic || "https://via.placeholder.com/150"}
                                             alt="Profile"
                                             className="w-24 h-24 rounded-full mx-auto border-2 border-gray-200"
                                         />
