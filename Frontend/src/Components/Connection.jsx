@@ -1,396 +1,142 @@
+// --- START OF REGENERATED FILE Connection.jsx ---
 // Connection.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
+// Define color constants (can be removed if using Tailwind classes directly)
 const colors = {
-    primary: "#0a66c2", // LinkedIn Blue
-    secondary: "#f0f2f5", // Light Grey Background
-    textPrimary: "#000000", // Black Text
-    textSecondary: "#666666", // Grey Text
+    primary: "#0a66c2",
+    secondary: "#f0f2f5",
+    textPrimary: "#191919",
+    textSecondary: "#666666",
     white: "#ffffff",
-    accent: "#e7e9ea", // Light Grey Accent
-    success: "#28a745",
-    warning: "#ffc107",
-    danger: "#dc3545",
+    accent: "#e7e9ea",
+    success: "#28a745", // Use Tailwind bg-green-600 or similar
+    warning: "#ffc107", // Use Tailwind bg-yellow-400 or similar
+    danger: "#dc3545",  // Use Tailwind bg-red-600 or similar
+    borderLight: "#e0e0e0",
 };
 
-const connectionsData = [
-    {
-        id: 1,
-        name: "Jayesh Chavda",
-        title: "Asp.Net and Microsoft Dynamics CRM Developer",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 2,
-        name: "Mitul Koradiya",
-        title: "Full-stack PHP developer | Freelancer | Laravel ...",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/2.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 3,
-        name: "Kunjesh Patel",
-        title: "AI/ML Engineer | Freelancing - AI/ML ...",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/3.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 4,
-        name: "Mihir Ghelani",
-        title: "React.js, Next.js, Vue.js, and React-native ...",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/4.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 5,
-        name: "Hitendrasinh Rathod",
-        title: "Flutter Developer",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/5.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 6,
-        name: "Hrut Nayak",
-        title: "Enthusiast Data Analyst || Power BI || SQL || ETL || ...",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/6.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 7,
-        name: "Darshan Nimavat",
-        title: "Graphic Designer & Video Editor",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/7.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 8,
-        name: "Mohit Rane",
-        title: "Immediate Joiner | Actively looking for ...",
-        location: "Greater Ahmedabad Area",
-        profileImage: "https://randomuser.me/api/portraits/men/8.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 9,
-        name: "Priya Sharma",
-        title: "Software Engineer at Google",
-        location: "Bengaluru, Karnataka, India",
-        profileImage: "https://randomuser.me/api/portraits/women/1.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 10,
-        name: "Anjali Patel",
-        title: "Data Scientist | Machine Learning Enthusiast",
-        location: "Mumbai, Maharashtra, India",
-        profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 11,
-        name: "Vikram Singh",
-        title: "Product Manager at Microsoft",
-        location: "Hyderabad, Telangana, India",
-        profileImage: "https://randomuser.me/api/portraits/men/9.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 12,
-        name: "Sneha Gupta",
-        title: "UX/UI Designer | Passionate about User Experience",
-        location: "Delhi, India",
-        profileImage: "https://randomuser.me/api/portraits/women/3.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 13,
-        name: "Rohan Verma",
-        title: "Marketing Manager | Digital Marketing Strategist",
-        location: "Chennai, Tamil Nadu, India",
-        profileImage: "https://randomuser.me/api/portraits/men/10.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 14,
-        name: "Deepika Menon",
-        title: "Human Resources Manager | Talent Acquisition Specialist",
-        location: "Kolkata, West Bengal, India",
-        profileImage: "https://randomuser.me/api/portraits/women/4.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 15,
-        name: "Arjun Reddy",
-        title: "Financial Analyst | Investment Banking Professional",
-        location: "Pune, Maharashtra, India",
-        profileImage: "https://randomuser.me/api/portraits/men/11.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 16,
-        name: "Kavita Joshi",
-        title: "Business Analyst | Process Improvement Expert",
-        location: "Jaipur, Rajasthan, India",
-        profileImage: "https://randomuser.me/api/portraits/women/5.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 17,
-        name: "Suresh Kumar",
-        title: "Operations Manager | Supply Chain Management",
-        location: "Chandigarh, India",
-        profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 18,
-        name: "Meena Iyer",
-        title: "Content Writer | Creative Storyteller",
-        location: "Lucknow, Uttar Pradesh, India",
-        profileImage: "https://randomuser.me/api/portraits/women/6.jpg",
-        isOpenToWork: true
-    },
-    {
-        id: 19,
-        name: "Ganesh Patel",
-        title: "Civil Engineer | Structural Design Specialist",
-        location: "Surat, Gujarat, India",
-        profileImage: "https://randomuser.me/api/portraits/men/13.jpg",
-        isOpenToWork: false
-    },
-    {
-        id: 20,
-        name: "Lakshmi Nair",
-        title: "Teacher | Educator | Passionate about Learning",
-        location: "Thiruvananthapuram, Kerala, India",
-        profileImage: "https://randomuser.me/api/portraits/women/7.jpg",
-        isOpenToWork: true
-    }
-];
+// Define view modes
+const VIEW_MODES = {
+    SUGGESTIONS: 'suggestions',
+    PENDING: 'pending',
+    REQUESTS: 'requests',
+    CONNECTIONS: 'connections',
+};
 
+// Backend Base URL - Adjust if your backend runs elsewhere
+const API_BASE_URL = 'http://localhost:5000';
 
-const eventsData = [
-    {
-        id: 1,
-        title: "Safari Rally Championships Safari 2025 in Kenya",
-        date: "Fri, Mar 20, 2025, 2:30 PM",
-        location: "Kenya - Fans and Spectators Servi",
-        attendees: 23,
-        image: "https://placekitten.com/200/150",
-    },
-    {
-        id: 2,
-        title: "8 - Day NLP Practitioner & Beyond Training",
-        date: "Thu, Mar 20, 2025, 3:00 PM",
-        location: "Break Free and Thrive",
-        attendees: 6,
-        image: "https://placekitten.com/201/151",
-    },
-    {
-        id: 3,
-        title: "Emergency Response",
-        date: "Fri, Mar 21, 2025, 12:00 AM",
-        location: "Construction Employers Association",
-        attendees: 7,
-        image: "https://placekitten.com/202/152",
-    },
-    {
-        id: 4,
-        title: "Sales Club Conference 2025",
-        date: "Fri, Mar 21, 2025, 11:30 AM",
-        location: "SALES CLUB - WATER CREST HOTEL",
-        attendees: 1522,
-        image: "https://placekitten.com/203/153",
-    },
-    {
-        id: 5,
-        title: "World Cornea Congress IX",
-        date: "Thu, Mar 20, 2025, 5:30 PM",
-        location: "Cornea Society",
-        attendees: 9,
-        image: "https://placekitten.com/204/154",
-    },
-    {
-        id: 6,
-        title: "Health Hazards in Construction",
-        date: "Thu, Mar 20, 2025, 10:00 PM",
-        location: "Construction Employers Association",
-        attendees: 3,
-        image: "https://placekitten.com/205/155",
-    },
-    {
-        id: 7,
-        title: "Tech Startup Summit 2025",
-        date: "Sat, Mar 22, 2025, 9:00 AM",
-        location: "Innovation Hub, Tech City",
-        attendees: 850,
-        image: "https://placekitten.com/206/156",
-    },
-    {
-        id: 8,
-        title: "Digital Marketing Masterclass",
-        date: "Sun, Mar 23, 2025, 2:00 PM",
-        location: "Online Webinar",
-        attendees: 210,
-        image: "https://placekitten.com/207/157",
-    },
-    {
-        id: 9,
-        title: "Leadership Workshop",
-        date: "Mon, Mar 24, 2025, 10:00 AM",
-        location: "Conference Center, Business Park",
-        attendees: 55,
-        image: "https://placekitten.com/208/158",
-    },
-    {
-        id: 10,
-        title: "Cybersecurity Conference",
-        date: "Tue, Mar 25, 2025, 9:30 AM",
-        location: "Grand Hotel Ballroom",
-        attendees: 420,
-        image: "https://placekitten.com/209/159",
-    },
-    {
-        id: 11,
-        title: "AI and Machine Learning Summit",
-        date: "Wed, Mar 26, 2025, 11:00 AM",
-        location: "Tech University Auditorium",
-        attendees: 680,
-        image: "https://placekitten.com/210/160",
-    },
-    {
-        id: 12,
-        title: "Project Management Seminar",
-        date: "Thu, Mar 27, 2025, 2:30 PM",
-        location: "Business Training Institute",
-        attendees: 120,
-        image: "https://placekitten.com/211/161",
-    },
-    {
-        id: 13,
-        title: "Financial Planning Workshop",
-        date: "Fri, Mar 28, 2025, 10:00 AM",
-        location: "Community Center Hall",
-        attendees: 75,
-        image: "https://placekitten.com/212/162",
-    },
-    {
-        id: 14,
-        title: "Creative Writing Workshop",
-        date: "Sat, Mar 29, 2025, 1:00 PM",
-        location: "Local Library",
-        attendees: 30,
-        image: "https://placekitten.com/213/163",
-    },
-    {
-        id: 15,
-        title: "Photography Exhibition",
-        date: "Sun, Mar 30, 2025, 3:00 PM",
-        location: "Art Gallery, Downtown",
-        attendees: 150,
-        image: "https://placekitten.com/214/164",
-    },
-    {
-        id: 16,
-        title: "Music Concert",
-        date: "Mon, Mar 31, 2025, 7:00 PM",
-        location: "City Concert Hall",
-        attendees: 900,
-        image: "https://placekitten.com/215/165",
-    },
-    {
-        id: 17,
-        title: "Yoga and Wellness Retreat",
-        date: "Tue, Apr 1, 2025, 8:00 AM",
-        location: "Mountain Resort",
-        attendees: 40,
-        image: "https://placekitten.com/216/166",
-    },
-    {
-        id: 18,
-        title: "Cooking Class - Italian Cuisine",
-        date: "Wed, Apr 2, 2025, 6:00 PM",
-        location: "Culinary School Kitchen",
-        attendees: 25,
-        image: "https://placekitten.com/217/167",
-    },
-    {
-        id: 19,
-        title: "Gardening Workshop",
-        date: "Thu, Apr 3, 2025, 10:30 AM",
-        location: "Botanical Garden Greenhouse",
-        attendees: 60,
-        image: "https://placekitten.com/218/168",
-    },
-    {
-        id: 20,
-        title: "Book Club Meeting",
-        date: "Fri, Apr 4, 2025, 7:30 PM",
-        location: "Cafe Bookworm",
-        attendees: 15,
-        image: "https://placekitten.com/219/169",
-    }
-];
+// #region Helper Components
 
+// Component for displaying a single user card with appropriate actions
+const DynamicConnectionCard = ({ user, status, onAction, actionLoadingTarget }) => {
+    const navigate = useNavigate();
+    // Check if the current card's action is loading
+    const isLoading = actionLoadingTarget === user.username;
 
-const ConnectionCard = ({ connection }) => {
+    const handleProfileClick = () => {
+        navigate(`/profile/${user.username}`);
+    };
+
+    // Determine button(s) based on the connection status/view mode
+    const renderButtons = () => {
+        switch (status) {
+            case VIEW_MODES.SUGGESTIONS:
+                return (
+                    <button
+                        onClick={() => onAction('sendRequest', user.username)}
+                        disabled={isLoading}
+                        className="font-semibold py-1.5 px-4 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out text-white disabled:opacity-50 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700" // Tailwind primary button
+                    >
+                        {isLoading ? <i className="fas fa-spinner fa-spin"></i> : 'Connect'}
+                    </button>
+                );
+            case VIEW_MODES.PENDING: // Request sent by logged-in user
+                return (
+                    <button
+                        onClick={() => onAction('withdrawRequest', user.username)}
+                        disabled={isLoading}
+                        className="font-semibold py-1.5 px-4 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed bg-gray-200 hover:bg-gray-300 text-gray-600" // Tailwind secondary/pending button
+                    >
+                        {isLoading ? <i className="fas fa-spinner fa-spin"></i> : 'Pending'}
+                    </button>
+                );
+            case VIEW_MODES.REQUESTS: // Request received by logged-in user
+                return (
+                    <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-2">
+                        <button
+                            onClick={() => onAction('acceptRequest', user.username)}
+                            disabled={isLoading}
+                            className="font-semibold py-1.5 px-4 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out text-white disabled:opacity-50 disabled:cursor-not-allowed bg-green-600 hover:bg-green-700" // Tailwind success button
+                        >
+                             {isLoading ? <i className="fas fa-spinner fa-spin"></i> : 'Accept'}
+                        </button>
+                        <button
+                            onClick={() => onAction('rejectRequest', user.username)}
+                            disabled={isLoading}
+                            className="font-semibold py-1.5 px-4 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed bg-gray-200 hover:bg-gray-300 text-gray-600" // Tailwind secondary/ignore button
+                        >
+                             {isLoading ? <i className="fas fa-spinner fa-spin"></i> : 'Ignore'}
+                        </button>
+                    </div>
+                );
+            case VIEW_MODES.CONNECTIONS:
+                return (
+                     <button
+                        onClick={() => onAction('removeConnection', user.username)}
+                        disabled={isLoading}
+                        className="font-semibold py-1.5 px-4 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed bg-gray-200 hover:bg-gray-300 text-gray-600" // Tailwind remove button
+                    >
+                        {isLoading ? <i className="fas fa-spinner fa-spin"></i> : 'Remove'}
+                    </button>
+                );
+            default:
+                return null;
+        }
+    };
 
     return (
-        <div className="bg-white rounded-md shadow-sm p-4 mb-4 hover:shadow-md transition-shadow duration-200">
-            <div className="flex justify-between items-start">
-                <div className="flex items-start">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden mr-3">
-                        <img src={connection.profileImage} alt={connection.name} className="object-cover w-full h-full" />
-                        {connection.isOpenToWork && (
-                            <div className="absolute bottom-0 left-0 bg-green-500 text-white text-xs font-semibold py-0.5 px-1 rounded-tr-full rounded-br-full">
-                                #OpenToWork
-                            </div>
-                        )}
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-semibold text-textPrimary hover:underline cursor-pointer">{connection.name}</h3>
-                        <p className="text-sm text-textSecondary">{connection.title}</p>
-                        <p className="text-sm text-textSecondary">{connection.location}</p>
+        <div className="bg-white rounded-md shadow-sm border border-gray-200 p-4 mb-4 hover:shadow-lg transition-shadow duration-200">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center cursor-pointer flex-grow min-w-0 mr-2" onClick={handleProfileClick}> {/* Added flex-grow, min-w-0, mr-2 */}
+                    {/* <img
+                        src={user.image || 'https://via.placeholder.com/48?text=N/A'}
+                        alt={user.name || user.username}
+                        className="w-12 h-12 rounded-full object-cover mr-3 border border-gray-300 flex-shrink-0" // Added flex-shrink-0
+                        onError={(e) => { e.target.onerror = null; e.target.src="https://via.placeholder.com/48?text=Err"; }}
+                    /> */}
+                    <div className="min-w-0"> {/* Added min-w-0 to allow text truncation */}
+                        <h3 className="text-md font-semibold text-gray-800 hover:underline truncate">{user.name || user.username}</h3>
+                        <p className="text-sm text-gray-500 truncate">{user.title || 'No title provided'}</p>
                     </div>
                 </div>
-                <button
-                    className={`bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline text-sm`}
-                    style={{ backgroundColor: colors.primary, color: colors.white }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = "#004182"}
-                    onMouseOut={(e) => e.target.style.backgroundColor = colors.primary}
-                >
-                    Connect
-                </button>
+                <div className="ml-auto flex-shrink-0"> {/* Added ml-auto */}
+                    {renderButtons()}
+                </div>
             </div>
         </div>
     );
 };
 
-
+// Component for displaying a single event card
 const EventCard = ({ event }) => {
-    return (
-        <div className="bg-white rounded-md shadow-sm p-4 mb-4 hover:shadow-md transition-shadow duration-200 flex">
-            <div className="w-24 h-24 rounded-md overflow-hidden mr-4">
-                <img src={event.image} alt={event.title} className="object-cover w-full h-full" />
-            </div>
-            <div className="flex-1">
-                <h3 className="text-md font-semibold text-textPrimary hover:underline cursor-pointer">{event.title}</h3>
-                <p className="text-sm text-textSecondary"><i className="far fa-calendar mr-1"></i> {event.date}</p>
-                <p className="text-sm text-textSecondary"><i className="fas fa-map-marker-alt mr-1"></i> {event.location}</p>
-                <p className="text-sm text-textSecondary"><i className="fas fa-users mr-1"></i> {event.attendees} attendees</p>
+     return (
+        <div className="bg-white rounded-md shadow-sm border border-gray-200 p-4 mb-4 hover:shadow-md transition-shadow duration-200 flex items-center">
+            {/* <img
+                src={event.image || 'https://via.placeholder.com/80?text=Event'}
+                alt={event.title}
+                className="w-20 h-20 rounded-md object-cover mr-4 flex-shrink-0"
+                onError={(e) => { e.target.onerror = null; e.target.src="https://via.placeholder.com/80?text=Err"; }}
+            /> */}
+            <div className="flex-1 min-w-0">
+                <h3 className="text-md font-semibold text-gray-800 hover:underline cursor-pointer truncate">{event.title}</h3>
+                <p className="text-sm text-gray-500 truncate"><i className="far fa-calendar-alt mr-1 text-xs"></i> {event.date}</p>
+                <p className="text-sm text-gray-500 truncate"><i className="fas fa-map-marker-alt mr-1 text-xs"></i> {event.location}</p>
+                <p className="text-sm text-gray-500"><i className="fas fa-users mr-1 text-xs"></i> {event.attendees} attendees</p>
                 <button
-                    className={`bg-white hover:bg-accent text-primary font-semibold py-2 px-4 rounded-full border border-primary focus:outline-none focus:shadow-outline text-sm mt-2`}
-                    style={{ color: colors.primary, borderColor: colors.primary }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = colors.accent}
-                    onMouseOut={(e) => e.target.style.backgroundColor = colors.white}
+                    className={`mt-2 font-semibold py-1 px-3 rounded-full text-sm inline-flex items-center justify-center transition duration-150 ease-in-out bg-white hover:bg-gray-100 text-blue-600 border border-blue-600`}
                 >
                     View
                 </button>
@@ -399,164 +145,315 @@ const EventCard = ({ event }) => {
     );
 };
 
+// #endregion Helper Components
 
+
+// Main Connection Component
 const Connection = () => {
+    // #region State Variables
+    const [myProfile, setMyProfile] = useState(null);
+    const [allOtherProfiles, setAllOtherProfiles] = useState([]);
+    const [viewMode, setViewMode] = useState(VIEW_MODES.SUGGESTIONS);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [actionLoadingTarget, setActionLoadingTarget] = useState(null);
+    // Example static events data (replace or fetch dynamically if needed)
+    const [eventsData] = useState([
+        { id: 1, title: "Tech Meetup", date: "Next Tuesday", location: "Online", attendees: 45, image: "https://placekitten.com/200/150" },
+        { id: 2, title: "Design Workshop", date: "This Friday", location: "Co-work Space", attendees: 20, image: "https://placekitten.com/201/151" },
+    ]);
+    // #endregion State Variables
 
-    const [viewAllConn, setViewAllConn] = useState(false);
+    const navigate = useNavigate();
 
-    return (
-        <div className="bg-secondary max-h-[calc(100vh-64px)] flex" style={{ backgroundColor: colors.secondary }}>
-            {/* Left Sidebar */}
-            <div className="hidden md:block w-64 p-4 sticky max-h-[calc(100vh-64px)] top-16 h-screen overflow-y-auto">
-                <div className="bg-white rounded-md shadow-sm p-4">
-                    <h2 className="text-lg font-semibold mb-3 text-textPrimary">Manage my network</h2>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="fas fa-user-friends mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Connections</span>
+    // Function to fetch all necessary initial data
+    const fetchData = useCallback(async () => {
+        // Don't reset loading if only action target is changing
+        if (!actionLoadingTarget) {
+            setLoading(true);
+        }
+        setError(null); // Clear previous errors on new fetch attempt
+
+        try {
+            // Fetch logged-in user's profile data
+            const profileResponse = await fetch(`${API_BASE_URL}/api/profile/me`, { credentials: 'include' });
+
+            // --- Improved Response Handling ---
+            if (!profileResponse.ok) {
+                if (profileResponse.status === 401) {
+                    console.log("Unauthorized fetching profile, redirecting to login.");
+                    navigate('/login');
+                    return; // Stop further execution
+                }
+                // Try to get error message from backend, otherwise use status text
+                let errorMsg = `Failed to fetch own profile: ${profileResponse.statusText}`;
+                try {
+                    const errorData = await profileResponse.json();
+                    errorMsg = errorData.message || errorMsg;
+                } catch (e) { /* Ignore if response is not JSON */ }
+                throw new Error(errorMsg);
+            }
+            const profileData = await profileResponse.json(); // Now safe to parse
+            setMyProfile(profileData.profile);
+
+            // Fetch profiles of all other users
+            const usersResponse = await fetch(`${API_BASE_URL}/api/users/all-profiles`, { credentials: 'include' });
+             if (!usersResponse.ok) {
+                 // Similar error handling for the second fetch
+                 let errorMsg = `Failed to fetch other users: ${usersResponse.statusText}`;
+                 try {
+                    const errorData = await usersResponse.json();
+                    errorMsg = errorData.message || errorMsg;
+                 } catch(e) { /* Ignore */ }
+                throw new Error(errorMsg);
+            }
+            const usersData = await usersResponse.json(); // Safe to parse
+            setAllOtherProfiles(usersData || []);
+
+        } catch (err) {
+            console.error("Error fetching connection data:", err);
+            setError(err.message || "Failed to load network data.");
+            // Clear data on error? Optional, depends on desired UX
+            // setMyProfile(null);
+            // setAllOtherProfiles([]);
+        } finally {
+             // Only stop global loading if it wasn't just an action loader
+            if (!actionLoadingTarget) {
+                 setLoading(false);
+            }
+        }
+    }, [navigate, actionLoadingTarget]); // Include actionLoadingTarget to prevent full reload flicker
+
+    // Fetch data on component mount
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]); // fetchData dependency handles changes in navigate
+
+    // Function to handle connection actions
+    const handleConnectionAction = useCallback(async (action, targetUsername) => {
+        setActionLoadingTarget(targetUsername);
+        setError(null); // Clear previous action errors
+        let endpoint = '';
+        let method = 'POST';
+
+        switch (action) {
+            case 'sendRequest': endpoint = `/api/connections/request/${targetUsername}`; break;
+            case 'acceptRequest': endpoint = `/api/connections/accept/${targetUsername}`; break;
+            case 'rejectRequest': endpoint = `/api/connections/reject/${targetUsername}`; break;
+            case 'withdrawRequest': endpoint = `/api/connections/withdraw/${targetUsername}`; method = 'DELETE'; break;
+            case 'removeConnection': endpoint = `/api/connections/remove/${targetUsername}`; method = 'DELETE'; break;
+            default: setActionLoadingTarget(null); return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}${endpoint}`, { // Added API_BASE_URL
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+            });
+            // Check response status *before* trying to parse JSON
+            if (!response.ok) {
+                 let errorMsg = `Action failed: ${response.statusText}`;
+                 try {
+                     const errorData = await response.json();
+                     errorMsg = errorData.message || errorMsg;
+                 } catch(e) { /* Ignore if error response isn't JSON */ }
+                throw new Error(errorMsg);
+            }
+
+            // Optionally parse success message if needed
+            // const data = await response.json();
+            // console.log(`${action} successful:`, data.message);
+
+            // Refetch data to update the lists and connection statuses
+            await fetchData();
+
+        } catch (e) {
+            console.error(`Error performing ${action}:`, e);
+            setError(`Action failed: ${e.message}`); // Display action-specific error
+        } finally {
+            setActionLoadingTarget(null); // Clear loading indicator for this user/action
+        }
+    }, [fetchData]); // fetchData dependency is important here
+
+    // Memoized calculations for different user lists
+    const { suggestions, pending, requests, connections } = useMemo(() => {
+        // Return empty arrays if data isn't loaded yet to prevent errors
+        if (!myProfile || !allOtherProfiles) {
+            return { suggestions: [], pending: [], requests: [], connections: [] };
+        }
+
+        const myConnections = new Set(myProfile.connections || []);
+        const mySentRequests = new Set(myProfile.connectionRequestsSent || []);
+        const myReceivedRequests = new Set(myProfile.connectionRequestsReceived || []);
+
+        const suggestionsList = [];
+        const pendingList = [];
+        const requestsList = [];
+        const connectionsList = [];
+
+        allOtherProfiles.forEach(user => {
+            if (!user || !user.username || user.username === myProfile.username) return; // Skip invalid data or self
+
+            const username = user.username;
+            // Prioritize showing existing relationships over suggestions
+            if (myConnections.has(username)) {
+                connectionsList.push(user);
+            } else if (myReceivedRequests.has(username)) { // Requests received by me
+                requestsList.push(user);
+            } else if (mySentRequests.has(username)) { // Requests sent by me
+                pendingList.push(user);
+            } else {
+                suggestionsList.push(user); // Only suggest if no other relationship exists
+            }
+        });
+
+        return { suggestions: suggestionsList, pending, requests, connections };
+    }, [myProfile, allOtherProfiles]);
+
+    // Function to render the current list of users based on viewMode
+    const renderUserList = () => {
+        let usersToList = [];
+        let listTitle = "";
+        let emptyMessage = "";
+        let listStatus = viewMode;
+
+        switch (viewMode) {
+            case VIEW_MODES.PENDING:
+                usersToList = pending;
+                listTitle = "Pending Invitations";
+                emptyMessage = "You haven't sent any invitations recently.";
+                break;
+            case VIEW_MODES.REQUESTS:
+                usersToList = requests;
+                listTitle = "Received Invitations";
+                emptyMessage = "You have no pending invitations.";
+                break;
+            case VIEW_MODES.CONNECTIONS:
+                usersToList = connections;
+                listTitle = "My Connections";
+                emptyMessage = "You haven't made any connections yet.";
+                break;
+            case VIEW_MODES.SUGGESTIONS:
+            default:
+                usersToList = suggestions;
+                listTitle = "People You May Know";
+                emptyMessage = "No new connection suggestions right now.";
+                listStatus = VIEW_MODES.SUGGESTIONS;
+                break;
+        }
+
+        return (
+            <div className="bg-white rounded-lg shadow border border-gray-200 p-4">
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">{listTitle} ({usersToList.length})</h2>
+                {usersToList.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> {/* Adjusted grid for responsiveness */}
+                        {usersToList.map(user => (
+                            <DynamicConnectionCard
+                                key={user.username}
+                                user={user}
+                                status={listStatus}
+                                onAction={handleConnectionAction}
+                                actionLoadingTarget={actionLoadingTarget}
+                            />
+                        ))}
                     </div>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="fas fa-user-plus mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Following & followers</span>
-                    </div>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="fas fa-users mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Groups</span>
-                    </div>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="far fa-calendar-alt mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Events</span>
-                    </div>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="far fa-flag mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Pages</span> <span className="ml-1 text-xs bg-gray-300 text-gray-700 rounded-full px-2 py-0.5">2</span>
-                    </div>
-                    <div className="flex items-center mb-2 p-2 rounded-md hover:bg-accent cursor-pointer">
-                        <i className="far fa-newspaper mr-3 text-lg text-textSecondary"></i>
-                        <span className="text-textPrimary">Newsletters</span>
-                    </div>
-                </div>
+                ) : (
+                    <p className="text-gray-500 italic text-center py-4">{emptyMessage}</p>
+                )}
             </div>
+        );
+    };
+
+    // #region Render Component JSX
+    return (
+        // Use h-screen and overflow-hidden on parent if navbar isn't covering part of viewport
+        <div className="bg-gray-100 flex h-[calc(100vh-64px)]"> {/* Assuming 64px navbar height */}
+
+            {/* Left Sidebar */}
+            <aside className="hidden md:block w-64 lg:w-72 p-4 flex-shrink-0 overflow-y-auto">
+                <nav className="bg-white rounded-lg shadow border border-gray-200 p-4 mb-4 sticky top-0">
+                    <h2 className="text-base font-semibold mb-3 text-gray-700 px-2">Manage my network</h2>
+                    {/* Sidebar items using Tailwind classes */}
+                     <button onClick={() => setViewMode(VIEW_MODES.CONNECTIONS)} className={`w-full flex items-center mb-1 p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-150 text-left ${viewMode === VIEW_MODES.CONNECTIONS ? 'bg-gray-100 font-semibold text-blue-700' : 'text-gray-600'}`}>
+                        <i className="fas fa-user-friends mr-3 text-lg w-5 text-center text-gray-500"></i>
+                        <span>Connections</span>
+                        <span className="ml-auto text-sm text-gray-500 font-normal">{connections.length}</span>
+                    </button>
+                     <button onClick={() => setViewMode(VIEW_MODES.REQUESTS)} className={`w-full flex items-center mb-1 p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-150 text-left ${viewMode === VIEW_MODES.REQUESTS ? 'bg-gray-100 font-semibold text-blue-700' : 'text-gray-600'}`}>
+                        <i className="fas fa-user-clock mr-3 text-lg w-5 text-center text-gray-500"></i>
+                        <span>Invitations</span>
+                         <span className="ml-auto text-sm text-gray-500 font-normal">{requests.length}</span>
+                    </button>
+                     <button onClick={() => setViewMode(VIEW_MODES.PENDING)} className={`w-full flex items-center mb-1 p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-150 text-left ${viewMode === VIEW_MODES.PENDING ? 'bg-gray-100 font-semibold text-blue-700' : 'text-gray-600'}`}>
+                        <i className="fas fa-paper-plane mr-3 text-lg w-5 text-center text-gray-500"></i>
+                        <span>Pending</span>
+                         <span className="ml-auto text-sm text-gray-500 font-normal">{pending.length}</span>
+                    </button>
+                     <button onClick={() => setViewMode(VIEW_MODES.SUGGESTIONS)} className={`w-full flex items-center mb-1 p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-150 text-left ${viewMode === VIEW_MODES.SUGGESTIONS ? 'bg-gray-100 font-semibold text-blue-700' : 'text-gray-600'}`}>
+                        <i className="fas fa-lightbulb mr-3 text-lg w-5 text-center text-gray-500"></i>
+                        <span>Suggestions</span>
+                         <span className="ml-auto text-sm text-gray-500 font-normal">{suggestions.length}</span>
+                    </button>
+                    {/* Add other static items similarly */}
+                </nav>
+                {/* Footer/Ad Placeholder */}
+                 <div className="text-center text-xs text-gray-400 mt-4">
+                     {/* Ad placeholder or footer links */}
+                 </div>
+            </aside>
 
             {/* Main Content */}
-            <div className="flex-1 p-4 max-h-[calc(100vh-64px)] overflow-y-auto">
-                {/* Grow Section */}
-                <div className="mb-6">
-                    <div className="bg-white rounded-md shadow-sm p-4">
-                        <div className="flex justify-between items-center mb-3">
-                            <h2 className="text-lg font-semibold text-textPrimary">Grow</h2>
-                        </div>
-                        <div className="p-3 border border-accent rounded-md">
-                            <h3 className="font-semibold text-md text-textPrimary mb-2">Grow your career faster</h3>
-                            <p className="text-sm text-textSecondary mb-3">Stand out for a role with personalized cover letters and resume tips.</p>
-                            <div className="flex items-center mb-3">
-                                <i className="fas fa-user-tie text-textSecondary mr-2"></i>
-                                <span className="text-sm text-textSecondary">Millions of members use Premium</span>
-                            </div>
-                            <button
-                                className={`bg-warning hover:bg-warning-dark text-textPrimary font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline text-sm`}
-                                style={{ backgroundColor: colors.warning, color: colors.textPrimary }}
-                                onMouseOver={(e) => e.target.style.backgroundColor = "#ffb300"}
-                                onMouseOut={(e) => e.target.style.backgroundColor = colors.warning}
-                            >
-                                Try Premium for ₹0
-                            </button>
-                            <p className="text-xs text-textSecondary mt-1">1-month free trial. Cancel anytime.</p>
-                        </div>
+            <main className="flex-1 p-4 overflow-y-auto">
+                {loading && !actionLoadingTarget && ( // Show full page loader only on initial load
+                     <div className="text-center p-10">
+                         <i className="fas fa-spinner fa-spin text-blue-600 text-3xl"></i>
+                         <p className="text-gray-500 mt-2">Loading your network...</p>
                     </div>
-                </div>
+                )}
 
-                {/* Catch up Section */}
-                <div className="mb-6">
-                    <div className="bg-white rounded-md shadow-sm p-4">
-                        <div className="flex justify-between items-center mb-3">
-                            <h2 className="text-lg font-semibold text-textPrimary">Catch up</h2>
-                        </div>
-                        <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-semibold text-md text-textPrimary">Stay in touch through daily games</h3>
-                            <button className="text-primary text-sm hover:underline" style={{ color: colors.primary }}>
-                                <i className="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                        <div className="flex space-x-2 overflow-x-auto pb-2">
-                            <div className="bg-accent rounded-md p-2 w-32 flex flex-col items-center">
-                                <div className="bg-white p-2 rounded-md"><i className="fas fa-puzzle-piece text-xl text-warning" style={{ color: colors.warning }}></i></div>
-                                <span className="text-sm text-textPrimary mt-2 font-semibold">Zip #3</span>
-                                <span className="text-xs text-textSecondary">Thursday, Mar 20</span>
-                                <button
-                                    className={`bg-white hover:bg-gray-100 text-primary font-semibold py-1 px-3 rounded-full border border-primary focus:outline-none focus:shadow-outline text-xs mt-2`}
-                                    style={{ color: colors.primary, borderColor: colors.primary }}
-                                    onMouseOver={(e) => e.target.style.backgroundColor = colors.accent}
-                                    onMouseOut={(e) => e.target.style.backgroundColor = colors.white}
-                                >
-                                    Solve
-                                </button>
-                            </div>
-                            <div className="bg-accent rounded-md p-2 w-32 flex flex-col items-center">
-                                <div className="bg-white p-2 rounded-md"><i className="fas fa-chess-queen text-xl text-danger" style={{ color: colors.danger }}></i></div>
-                                <span className="text-sm text-textPrimary mt-2 font-semibold">Queens #324</span>
-                                <span className="text-xs text-textSecondary">Thursday, Mar 20</span>
-                                <button
-                                    className={`bg-white hover:bg-gray-100 text-primary font-semibold py-1 px-3 rounded-full border border-primary focus:outline-none focus:shadow-outline text-xs mt-2`}
-                                    style={{ color: colors.primary, borderColor: colors.primary }}
-                                    onMouseOver={(e) => e.target.style.backgroundColor = colors.accent}
-                                    onMouseOut={(e) => e.target.style.backgroundColor = colors.white}
-                                >
-                                    Solve
-                                </button>
-                            </div>
-                            <div className="bg-accent rounded-md p-2 w-32 flex flex-col items-center">
-                                <div className="bg-white p-2 rounded-md"><i className="fas fa-dice-d6 text-xl text-success" style={{ color: colors.success }}></i></div>
-                                <span className="text-sm text-textPrimary mt-2 font-semibold">Tango #164</span>
-                                <span className="text-xs text-textSecondary">Thursday, Mar 20</span>
-                                <button
-                                    className={`bg-white hover:bg-gray-100 text-primary font-semibold py-1 px-3 rounded-full border border-primary focus:outline-none focus:shadow-outline text-xs mt-2`}
-                                    style={{ color: colors.primary, borderColor: colors.primary }}
-                                    onMouseOver={(e) => e.target.style.backgroundColor = colors.accent}
-                                    onMouseOut={(e) => e.target.style.backgroundColor = colors.white}
-                                >
-                                    Solve
-                                </button>
-                            </div>
-                        </div>
+                {error && ( // Display error prominently
+                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mb-4 shadow" role="alert">
+                        <p className="font-bold">Network Error</p>
+                        <p>{error}</p>
                     </div>
-                </div>
+                )}
 
+                {/* Render dynamic user list */}
+                 {!loading && myProfile && (
+                     <section className="mb-6">
+                        {renderUserList()}
+                    </section>
+                 )}
 
-                {/* People you may know Section */}
-                <div className="mb-6">
-                    <div className="bg-white rounded-md shadow-sm p-4">
-                        <div className="flex justify-between items-center mb-3">
-                            <h2 className="text-lg font-semibold text-textPrimary">People You may know</h2>
-                            <button className="text-primary text-sm hover:underline" style={{ color: colors.primary }}>Show all</button>
-                        </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            {connectionsData.map(connection => (
-                                <ConnectionCard key={connection.id} connection={connection} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                {/* Static sections (only render if not loading initial data) */}
+                {!loading && (
+                    <>
+                        {/* Grow Section (Optional) */}
+                        {/* <section className="mb-6"> ... </section> */}
 
-                {/* Events Section */}
-                <div className="mb-6">
-                    <div className="bg-white rounded-md shadow-sm p-4">
-                        <div className="flex justify-between items-center mb-3">
-                            <h2 className="text-lg font-semibold text-textPrimary">Events</h2>
-                            <button className="text-primary text-sm hover:underline" style={{ color: colors.primary }}>Create an event</button>
-                        </div>
-                        <h3 className="font-semibold text-md text-textPrimary mb-3">Recommended for you</h3>
-                        <div>
-                            {eventsData.map(event => (
-                                <EventCard key={event.id} event={event} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                         {/* Events Section */}
+                         <section className="mb-6">
+                            <div className="bg-white rounded-lg shadow border border-gray-200 p-4">
+                                <h2 className="text-lg font-semibold text-gray-800 mb-4">Events Happening Soon</h2>
+                                {eventsData.length > 0 ? (
+                                     eventsData.map(event => (
+                                        <EventCard key={event.id} event={event} />
+                                    ))
+                                ) : (
+                                    <p className="text-gray-500 italic">No upcoming events found.</p>
+                                )}
+                            </div>
+                        </section>
+                    </>
+                )}
+            </main>
 
-
-            </div>
+            {/* Removed the <style jsx> block entirely */}
         </div>
     );
+    // #endregion Render Component JSX
 };
 
 export default Connection;
+// --- END OF REGENERATED FILE Connection.jsx ---

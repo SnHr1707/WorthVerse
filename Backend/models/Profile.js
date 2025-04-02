@@ -37,12 +37,9 @@ const profileSchema = new mongoose.Schema({
     // --- NEW CONNECTION FIELDS ---
     connections: [{ type: String }], // Array of usernames this user is connected with
     connectionRequestsSent: [{ type: String }], // Array of usernames this user sent requests to
-    connectionRequestsReceived: [{ type: String }] // Array of usernames this user received requests from
+    connectionRequestsReceived: [{ type: String }]
 
-}, { timestamps: true }); // Added timestamps for profile creation/update
+}, { timestamps: true }); 
 
-// Ensure profile is created when user signs up (optional, depends on flow)
-// You might handle this in the signup controller instead.
-// profileSchema.pre('save', async function(next) { ... });
 
 module.exports = mongoose.model('Profile', profileSchema, 'Profile_Info');
