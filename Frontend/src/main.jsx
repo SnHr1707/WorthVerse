@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <JobPage />,
       },
       {
-        path: "/profile",
+        path: "/profile/:username",
         element: <MyProfilePage />,
       },
       {
