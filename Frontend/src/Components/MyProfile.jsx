@@ -1,4 +1,3 @@
-// --- START OF REGENERATED FILE MyProfile.jsx ---
 // MyProfile.jsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -9,8 +8,8 @@ const CONNECTION_STATUS = {
     SELF: 'SELF',
     NOT_LOGGED_IN: 'NOT_LOGGED_IN',
     CAN_CONNECT: 'CAN_CONNECT',
-    REQUEST_SENT: 'REQUEST_SENT', // Logged-in user sent request to profile owner
-    REQUEST_RECEIVED: 'REQUEST_RECEIVED', // Profile owner sent request to logged-in user
+    REQUEST_SENT: 'REQUEST_SENT', 
+    REQUEST_RECEIVED: 'REQUEST_RECEIVED',
     CONNECTED: 'CONNECTED',
     PROFILE_NOT_FOUND: 'PROFILE_NOT_FOUND',
     USER_NOT_FOUND: 'USER_NOT_FOUND',
@@ -20,7 +19,7 @@ const CONNECTION_STATUS = {
 // Helper component for cleaner list item rendering
 const ProfileListItem = ({ children, isEditMode, color = 'indigo', onDelete, index, ...props }) => {
     const baseClasses = `bg-white rounded-lg shadow-md p-4 border-l-4 transition-all duration-300 ease-in-out`;
-    const hoverClasses = isEditMode ? '' : `hover:shadow-lg hover:scale-[1.02]`; // Scale effect only in view mode
+    const hoverClasses = isEditMode ? '' : `hover:shadow-lg hover:scale-[1.02]`;
     const borderClass = isEditMode ? `border-gray-300` : `border-${color}-500`;
 
     return (
@@ -70,7 +69,7 @@ function MyProfile() {
                   const getEndDateYear = (duration) => {
                       const parts = duration?.split(' - ') || [];
                       const endDateStr = parts[1] || parts[0];
-                      return endDateStr?.toLowerCase() === 'present' ? new Date().getFullYear() + 1 : parseInt(endDateStr?.match(/\d{4}/)?.[0] || '0', 10); // Present is newest
+                      return endDateStr?.toLowerCase() === 'present' ? new Date().getFullYear() + 1 : parseInt(endDateStr?.match(/\d{4}/)?.[0] || '0', 10);
                   };
                   return getEndDateYear(b.duration) - getEndDateYear(a.duration);
               })
@@ -161,16 +160,16 @@ function MyProfile() {
             } else {
                 // Use optional chaining and default empty arrays for safety
                 const connections = profileData.profile.connections || [];
-                const requestsSent = profileData.profile.connectionRequestsSent || []; // Viewer sent to profile owner
-                const requestsReceived = profileData.profile.connectionRequestsReceived || []; // Profile owner sent to viewer
+                const requestsSent = profileData.profile.connectionRequestsSent || []; 
+                const requestsReceived = profileData.profile.connectionRequestsReceived || [];
 
                 console.log("Checking connection status:", { currentLoggedInUsername, connections, requestsSent, requestsReceived });
 
                 if (connections.includes(currentLoggedInUsername)) {
                     setConnectionStatus(CONNECTION_STATUS.CONNECTED);
-                } else if (requestsReceived.includes(currentLoggedInUsername)) { // Profile owner sent request to viewer (viewer received)
+                } else if (requestsReceived.includes(currentLoggedInUsername)) { 
                     setConnectionStatus(CONNECTION_STATUS.REQUEST_RECEIVED);
-                } else if (requestsSent.includes(currentLoggedInUsername)) { // Viewer sent request to profile owner (viewer sent)
+                } else if (requestsSent.includes(currentLoggedInUsername)) { 
                     setConnectionStatus(CONNECTION_STATUS.REQUEST_SENT);
                 } else {
                     setConnectionStatus(CONNECTION_STATUS.CAN_CONNECT);
@@ -186,21 +185,20 @@ function MyProfile() {
             setLoading(false);
             console.log("fetchInitialData finished. Loading:", false, "Status:", connectionStatus);
         }
-    }, [profileUsernameFromURL]); // Dependency remains the same
+    }, [profileUsernameFromURL]);
 
     useEffect(() => {
         fetchInitialData();
-    }, [fetchInitialData]); // fetchInitialData itself depends on profileUsernameFromURL
+    }, [fetchInitialData]); 
 
     // --- Smooth Scroll Helper ---
     const scrollToRef = (ref) => {
         // Scrolls the main container, not the window
         const scrollContainer = document.getElementById('profile-scroll-container');
         if (scrollContainer && ref.current) {
-            // Calculate position relative to the scroll container
             const containerTop = scrollContainer.getBoundingClientRect().top;
             const elementTop = ref.current.getBoundingClientRect().top;
-            const offset = elementTop - containerTop + scrollContainer.scrollTop - 20; // Adjust 20px for padding/offset
+            const offset = elementTop - containerTop + scrollContainer.scrollTop - 20;
 
             scrollContainer.scrollTo({
                 top: offset,
@@ -212,10 +210,9 @@ function MyProfile() {
     // --- Edit Mode Handlers ---
     const handleEditClick = () => {
         if (connectionStatus === CONNECTION_STATUS.SELF) {
-            // Deep clone to prevent direct mutation of profile state before saving
             setProfileDataForEdit(JSON.parse(JSON.stringify(profile || {})));
             setIsEditMode(true);
-            setError(null); // Clear previous errors
+            setError(null);
         }
     };
 
@@ -223,7 +220,7 @@ function MyProfile() {
         setIsEditMode(false);
         // Reset edit data back to the original profile state
         setProfileDataForEdit(profile);
-        setError(null); // Clear potential validation errors shown during edit
+        setError(null);
     };
 
     const handleSaveProfile = async () => {
@@ -244,7 +241,7 @@ function MyProfile() {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify(cleanedData), // Send cleaned data
+                body: JSON.stringify(cleanedData),
             });
 
             if (!response.ok) {
@@ -253,8 +250,8 @@ function MyProfile() {
             }
 
             const updatedProfileData = await response.json();
-            setProfile(updatedProfileData.profile); // Update main profile state
-            setProfileDataForEdit(updatedProfileData.profile); // Update edit state as well
+            setProfile(updatedProfileData.profile);
+            setProfileDataForEdit(updatedProfileData.profile);
             setIsEditMode(false);
             console.log("Profile updated successfully");
 
@@ -320,10 +317,10 @@ function MyProfile() {
 
         switch (action) {
             case 'sendRequest': endpoint = `/api/connections/request/${targetUsername}`; break;
-            case 'acceptRequest': endpoint = `/api/connections/accept/${targetUsername}`; break; // Target is the *requester*
-            case 'rejectRequest': endpoint = `/api/connections/reject/${targetUsername}`; break; // Target is the *requester*
-            case 'withdrawRequest': endpoint = `/api/connections/withdraw/${targetUsername}`; method = 'DELETE'; break; // Target is the *receiver*
-            case 'removeConnection': endpoint = `/api/connections/remove/${targetUsername}`; method = 'DELETE'; break; // Target is the connection
+            case 'acceptRequest': endpoint = `/api/connections/accept/${targetUsername}`; break;
+            case 'rejectRequest': endpoint = `/api/connections/reject/${targetUsername}`; break;
+            case 'withdrawRequest': endpoint = `/api/connections/withdraw/${targetUsername}`; method = 'DELETE'; break;
+            case 'removeConnection': endpoint = `/api/connections/remove/${targetUsername}`; method = 'DELETE'; break;
             default: setActionLoading(false); return;
         }
 
@@ -333,7 +330,7 @@ function MyProfile() {
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
             });
-            const data = await response.json(); // Attempt to parse JSON regardless of status
+            const data = await response.json();
 
             if (!response.ok) {
                  console.error(`Action '${action}' failed: ${response.status}`, data);
@@ -347,8 +344,6 @@ function MyProfile() {
         } catch (e) {
             console.error(`Error performing action '${action}':`, e);
             setError({ message: `Action failed: ${e.message}` });
-             // Optionally, refetch even on error if state might be partially changed or inconsistent
-             // await fetchInitialData();
         } finally {
             setActionLoading(false);
         }
@@ -413,7 +408,7 @@ function MyProfile() {
 
     // --- Tailwind Class Definitions (for readability) ---
     const inputBaseClass = "block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150";
-    const textareaClass = `${inputBaseClass} min-h-[80px]`; // Ensure textarea has some height
+    const textareaClass = `${inputBaseClass} min-h-[80px]`;
     const labelClass = "block text-sm font-medium text-gray-700 mb-1";
     const buttonBase = "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed transition duration-150 ease-in-out";
     const buttonPrimary = `${buttonBase} text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500`;
@@ -698,8 +693,8 @@ function MyProfile() {
                                     <button onClick={() => {
                                         const shouldShow = !showAllExperience;
                                         setShowAllExperience(shouldShow);
-                                        if (!shouldShow) { // Scroll up when collapsing
-                                             setTimeout(() => scrollToRef(experienceRef), 50); // Allow time for render before scroll
+                                        if (!shouldShow) {
+                                             setTimeout(() => scrollToRef(experienceRef), 50);
                                         }
                                     }} className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-3 focus:outline-none ml-4">
                                         {showAllExperience ? "View Less" : "View More"} Experience
@@ -742,7 +737,7 @@ function MyProfile() {
                                     <button onClick={() => {
                                         const shouldShow = !showAllEducation;
                                         setShowAllEducation(shouldShow);
-                                        if (!shouldShow) { // Scroll up when collapsing
+                                        if (!shouldShow) {
                                             setTimeout(() => scrollToRef(educationRef), 50);
                                         }
                                     }} className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-3 focus:outline-none ml-4">
@@ -792,7 +787,7 @@ function MyProfile() {
                                     <button onClick={() => {
                                         const shouldShow = !showAllCertifications;
                                         setShowAllCertifications(shouldShow);
-                                        if (!shouldShow) { // Scroll up when collapsing
+                                        if (!shouldShow) {
                                             setTimeout(() => scrollToRef(certificationsRef), 50);
                                         }
                                     }} className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-3 focus:outline-none ml-4">
@@ -808,9 +803,8 @@ function MyProfile() {
                 </div> {/* End Profile Details Grid */}
 
             </div> {/* End Scrollable Container */}
-        </div> // End Outer Background Container
+        </div>
     );
 }
 
 export default MyProfile;
-// --- END OF REGENERATED FILE MyProfile.jsx ---

@@ -10,8 +10,8 @@ const router = express.Router();
 // Route to get logged-in user's basic info (like username) - Protected
 router.get('/me', authMiddleware.requireAuth, userController.getMe);
 
-// Route to get all other user profiles (for connection suggestions etc.) - Protected
-router.get('/all-profiles', authMiddleware.requireAuth, userController.getAllOtherProfiles); // Add this line
+// Route to get basic info of all other users (for suggestions, etc.) - Protected
+router.get('/all', authMiddleware.requireAuth, userController.getAllUsers); // <-- ADD THIS LINE
 
 module.exports = router;
-// --- END OF userRoutes.js addition ---
+// --- END OF REGENERATED FILE userRoutes.js ---

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Navigate } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null); // Use null for initial loading state
     const navigate = useNavigate();
-    const location = useLocation(); // Get current location
+    const location = useLocation();
 
     useEffect(() => {
         const checkAuthentication = async () => {
@@ -25,7 +25,7 @@ const PrivateRoute = ({ children }) => {
                 }
             } catch (error) {
                 console.error('Authentication check error:', error);
-                setIsAuthenticated(false); // Assume not authenticated in case of error
+                setIsAuthenticated(false); 
             }
         };
 
@@ -33,7 +33,7 @@ const PrivateRoute = ({ children }) => {
     }, []);
 
     if (isAuthenticated === null) {
-        return <div>Loading...</div>; // Or a spinner component
+        return <div>Loading...</div>;
     }
 
     return isAuthenticated ? (
