@@ -161,7 +161,7 @@ function Navbar() {
 
     // --- Data: Navigation Links ---
     const navLinks = [
-        { name: "Home", path: "/", id: "home" },
+        { name: "Home", path: "/home", id: "home" },
         { name: "Connections", path: "/connections", id: "connections" },
         { name: "Jobs", path: "/jobs", id: "jobs" },
     ];
